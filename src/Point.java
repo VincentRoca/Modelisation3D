@@ -1,36 +1,32 @@
 
 public class Point {
-	private int x,y,z;
+	private float x,y,z;
 
 	public Point(){}
-	public Point(int x, int y, int z) {
+	public Point(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-
-	public int getX() {
+	public float getX() {
 		return x;
 	}
-
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
-
-	public int getY() {
+	public float getY() {
 		return y;
 	}
-
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
-
-	public int getZ() {
+	public float getZ() {
 		return z;
 	}
-
-	public void setZ(int z) {
+	public void setZ(float z) {
 		this.z = z;
 	}
+
+
 	
 }
