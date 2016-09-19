@@ -7,6 +7,6 @@ public class Fenetre extends JFrame{
 		fen.setSize(400, 100);
 		fen.setLocationRelativeTo(null);
 		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fen.setVisible(true);
+		fen.setVisible(true); 
 	} 
 }
