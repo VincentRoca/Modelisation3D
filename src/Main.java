@@ -19,13 +19,19 @@ public class Main {
 			System.out.println("Affichage des faces uniquement.");
 		}else if(option.equals("-s")){
 			System.out.println("Affichage des segments uniquement.");
+		}else if(!option.equals("-f") || !option.equals("-s")){
+			System.out.println("Option incorrecte.");
 		}
 	}
 	
 	public static void main (String args[]){
-		verificationFormat(args[0]);
-		verificationOption(args[1]);
-		
-		
+		if(args.length>2 || args.length==0){
+			System.out.println("Nombre d'arguments incorrect.");
+		}else{
+			verificationFormat(args[0]);
+			if(args.length==2){
+				verificationOption(args[1]);
+			} 
+		}
 	}
 }
