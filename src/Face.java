@@ -1,11 +1,22 @@
-import java.util.List;
 
-public class Face {
-	private List <Point> points;
-
-	public Face(List<Point> points) {
-		this.points = points;
+class Face {
+	
+	private Point[] points;
+	
+	Point[] getPoints() {
+		return points;
 	}
-	public Face(){}
+	
+	Face(Point[] points) {
+		this.points=points;
+	}
+	
+	float getSommeZ() {
+		float res=0;
+		for(Point p : points)
+			res+=p.z;
+		return res;
+	}
 	
 }
+

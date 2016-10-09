@@ -1,37 +1,39 @@
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class Main {
-	public Main(){
+
+class Main {
+
+	public static void main(String[] args) {
+		try {
+			String filename=null;
+			if(args.length==2)
+				filename=args[1];
+			else if(args.length==1)
+				filename=args[0];
+			Modele m = new Modele(filename);
+			JFrame frame=new JFrame();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setPreferredSize(new Dimension((int)m.getXMax()+100, (int)m.getYmax()+100));
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+			Dessin d=new Dessin(m);
+			if(args.length==2) {
+				if(args[0].equals("-f"))
+					d.setType(Dessin.FACES);
+				else if(args[0].equals("-s"))
+					d.setType(Dessin.ARETES);
+				else
+					throw new Exception();
+			}
+			frame.getContentPane().add(d);
+			d.repaint();
+			frame.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Mauvaise utilisation du logiciel");
+		}
 		
 	}
-	
-	public static void verificationFormat(String fichier){
-		String ext=fichier.substring(fichier.lastIndexOf("."));
-		
-		if(!ext.equals(".txt")){
-			System.out.println("Format fichier incorrect.");
-		}else{
-			System.out.println("Format Ok");
-		}
-	}
-	
-	public static void verificationOption(String option){
-		if(option.equals("-f")){
-			System.out.println("Affichage des faces uniquement.");
-		}else if(option.equals("-s")){
-			System.out.println("Affichage des segments uniquement.");
-		}else if(!option.equals("-f") || !option.equals("-s")){
-			System.out.println("Option incorrecte.");
-		}
-	}
-	
-	public static void main (String args[]){
-		if(args.length>2 || args.length==0){
-			System.out.println("Nombre d'arguments incorrect.");
-		}else{
-			verificationFormat(args[0]);
-			if(args.length==2){
-				verificationOption(args[1]);
-			} 
-		}
-	}
+
 }
