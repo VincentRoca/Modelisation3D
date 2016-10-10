@@ -1,8 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.font.ImageGraphicAttribute;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,12 +31,12 @@ class Main {
 			frame.setLayout(new BorderLayout());
 
 			JPanel menu=new JPanel();
-			menu.setLayout(new GridLayout(2, 5));
-			 menu.add(new JButton("bouton 1"));
-			 menu.add(new JButton("2	"));
-			 menu.add(new JButton("bouton 3"));
-			 menu.add(new JButton("bouton 1")); 
-			 menu.add(new JButton("bouton 1"));
+			menu.setLayout(new GridLayout(2, 5,10,10));
+			 menu.add(new JButton("1"));
+			 menu.add(new JButton("2"));
+			 menu.add(new JButton("3"));
+			 menu.add(new JButton("4")); 
+			 menu.add(new JButton("5"));
 
 			Dessin d=new Dessin(m);
 			
