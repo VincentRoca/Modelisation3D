@@ -33,7 +33,7 @@ class Main {
 			 menu.add(new JButton("bouton 1"));
 			 menu.add(new JButton("2	"));
 			 menu.add(new JButton("bouton 3"));
-			 menu.add(new JButton("bouton 1"));
+			 menu.add(new JButton("bouton 1")); 
 			 menu.add(new JButton("bouton 1"));
 
 			Dessin d=new Dessin(m);
