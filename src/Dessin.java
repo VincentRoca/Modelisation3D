@@ -9,6 +9,7 @@ class Dessin extends JPanel {
 	public static final byte ALL=0, ARETES=1, FACES=2;
 	private Modele modele;
 	private byte type;
+	Face[] faces;
 	
 	Dessin(Modele modele) {
 		this.modele=modele;
@@ -19,7 +20,7 @@ class Dessin extends JPanel {
 	}
 		
 	protected void paintComponent(Graphics g) {
-		Face[] faces=modele.getFaces();
+		faces=modele.getFaces();
 		for(int i=0; i<faces.length; i++) {
 			Face f=faces[i];
 			Point[] points=f.getPoints();
