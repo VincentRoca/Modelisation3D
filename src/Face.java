@@ -18,5 +18,16 @@ class Face {
 		return res;
 	}
 	
+	public boolean equals(Object o) {
+		if(!(o instanceof Face)) return false;
+		Face f=(Face)o;
+		Point[] points=f.getPoints();
+		if(this.points.length!=points.length) return false;
+		for(Point p : this.points) {
+			
+		}
+			
+	}
+	
 }
 
