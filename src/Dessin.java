@@ -17,7 +17,7 @@ class Dessin extends JPanel {
 	
 	void setType(byte type) {
 		this.type=type;
-	}
+	} 
 		
 	protected void paintComponent(Graphics g) {
 		faces=modele.getFaces();
