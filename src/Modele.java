@@ -84,5 +84,13 @@ class Modele {
 			p.y=p.y-minY+50;
 		}
 	}
+	public void translation(Vecteur vec){
+		for(Point p: points){
+			p.x+=vec.getX();
+			p.y+=vec.getY();
+			
+		}
+		
+	}
 
 }
