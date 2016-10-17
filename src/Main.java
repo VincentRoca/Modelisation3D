@@ -33,11 +33,10 @@ class Main {
 			JPanel menu=new JPanel();
 			menu.setLayout(new GridLayout(2, 5,10,10));
 			 menu.add(new JButton("1"));
-			 menu.add(new JButton("2"));
-			 menu.add(new JButton("3"));
-			 menu.add(new JButton("4")); 
-			 menu.add(new JButton("5"));
-
+			 JButton zoomPlus=new JButton("+");
+			 JButton zoomMoin=new JButton("-");
+			 menu.add(zoomPlus);
+			 menu.add(zoomMoin);
 			Dessin d=new Dessin(m);
 			
 			//gestion de l'option d'affichage
