@@ -24,9 +24,12 @@ class Face {
 		Point[] points=f.getPoints();
 		if(this.points.length!=points.length) return false;
 		for(Point p : this.points) {
-			
+			boolean present=false;
+			for(int i=0; i<points.length && !present; i++) 
+				if(p.equals(points[i])) present=true;
+			if(present==false) return false;
 		}
-			
+		return true;
 	}
 	
 }
