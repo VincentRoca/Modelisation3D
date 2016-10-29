@@ -6,7 +6,7 @@ class Modele {
 
 	private Face[] faces;
 	private Point[] points;
-
+	
 	Modele(String fileName) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		String ligne;
@@ -34,7 +34,7 @@ class Modele {
 		ajustePoints();
 		triFaces();
 	}
-
+	
 	Face[] getFaces() {
 		return faces;
 	}
@@ -92,5 +92,4 @@ class Modele {
 		}
 		
 	}
-
 }

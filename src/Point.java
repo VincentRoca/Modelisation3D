@@ -14,5 +14,4 @@ class Point {
 		Point p=(Point)o;
 		return p.x==x && p.y==y && p.z==z;
 	}
-
 }

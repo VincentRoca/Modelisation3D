@@ -10,6 +10,7 @@ class Dessin extends JPanel {
 	private Modele modele;
 	private byte type;
 	Face[] faces;
+	float zoom = 1; //Zoom par defaut
 	
 	Dessin(Modele modele) {
 		this.modele=modele;
@@ -18,12 +19,24 @@ class Dessin extends JPanel {
 	void setType(byte type) {
 		this.type=type;
 	} 
+	
+	void setZoom(float zoom){
+		this.zoom= zoom;
+	}
+	
+	float getZoom(){
+		return this.zoom;
+	}
 		
 	protected void paintComponent(Graphics g) {
 		faces=modele.getFaces();
 		for(int i=0; i<faces.length; i++) {
 			Face f=faces[i];
 			Point[] points=f.getPoints();
+			for(int a =0; a<points.length;a++){
+				points[a] = new Point(points[a].x*zoom, points[a].y*zoom,points[a].z*zoom);
+			}
+			
 			int[] x=null, y=null;
 			if(type !=ARETES) {
 				x=new int[points.length];
