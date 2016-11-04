@@ -9,8 +9,8 @@ public class Vecteur {
 	}
 	
 	public boolean equals(Object o) {
-		if(!(o instanceof Point)) return false;
-		Point p=(Point)o;
+		if(!(o instanceof Point3D)) return false;
+		Point3D p=(Point3D)o;
 		return p.x==x && p.y==y && p.z==z;
 	}
 

@@ -17,7 +17,7 @@ class Dessin extends JPanel {
 	private Modele modele;
 	private byte type;
 	
-	Dessin(final Modele modele) {
+	Dessin(Modele modele) {
 		this.modele=modele;
 		addMouseWheelListener(new MouseWheelListener() {
 

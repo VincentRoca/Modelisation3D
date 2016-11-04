@@ -3,8 +3,7 @@ import java.awt.Color;
 class Face {
 	
 	private Point3D[] points;
-	//private Color color=new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
-	private Color color=Color.LIGHT_GRAY;
+	private Color color=new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
 	
 	Point3D[] getPoints() {
 		return points;
