@@ -82,13 +82,6 @@ public class DataBase {
 		}
 		close();
 	}
-	
-	
-	
-	public static void main(String[] args){
-		new DataBase().initDB();
-	}
-
 }
 
 
