@@ -101,6 +101,11 @@ class Modele {
 	}
 	
 	
+	/**
+	 * @param coeff
+	 * @param point
+	 * modifie les coordonees des points afin d'effectuer un zoom
+	 */
 	void zoom(float coeff,Point point) {
 		double x=point.getX(), y=point.getY();
 		for(Point3D p : points) {
@@ -110,6 +115,11 @@ class Modele {
 		}	
 	}
 	
+	/**
+	 * @param x
+	 * @param y
+	 * modifie les coordonees des points afin d'effectuer une translation.
+	 */
 	void translation(float x, float y) {
 		for(Point3D p : points) {
 			p.x+=x;

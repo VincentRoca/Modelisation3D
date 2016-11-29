@@ -1,5 +1,10 @@
 import java.awt.Dimension;
 
+/**
+ * @author lecomtea
+ * Cette classe sert a récuperer les dimensions de l'ecran et les coordonnees du centre de l'ecran.
+ *
+ */
 public class References {
 	static private Dimension dimension =java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 	

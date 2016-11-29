@@ -6,6 +6,10 @@ class MatriceFloat {
 		this.matrice=matrice;
 	}
 	
+	/**
+	 * @param m2
+	 * @return une matrice etant le produit de this et de m2
+	 */
 	MatriceFloat produit(MatriceFloat m2) {
 		if(matrice[0].length!=m2.matrice.length) return null;
 		float[][] res=new float[matrice.length][m2.matrice[0].length];
