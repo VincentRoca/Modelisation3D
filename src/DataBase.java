@@ -1,4 +1,9 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -142,8 +147,36 @@ public class DataBase {
 		close();
 	}
 
+	public void addFile(String path){
+
+		try {
+			InputStream sourceFile = new java.io.FileInputStream(path); 
+			File destintation = new File("data/"+new File(path).getName());
+
+			OutputStream destinationFile = new FileOutputStream(destintation);
+			int nbLecture; 
+			byte buffer[] = new byte[1024];
+			while ((nbLecture = sourceFile.read(buffer)) != -1){ 
+				destinationFile.write(buffer, 0, nbLecture); 
+			}
+
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+	}
+	
 
 }
+
+
 
 
 
