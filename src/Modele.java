@@ -6,27 +6,33 @@ import java.io.IOException;
 class Modele {
 
 	private Face[] faces;
-	private Point3D[] points;
+	
+	private MatriceFloat ensemblePoints;
 
 	Modele(String fileName) throws IOException  {
+		float[][] points=null;
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		String ligne;
 		while(!(ligne= br.readLine()).equals("end_header")){
 			String[] parts = ligne.split(" ");
 			if(parts[0].equals("element") && parts[1].equals("vertex"))
-				points=new Point3D[Integer.valueOf(parts[2])];
+				points=new float[Integer.valueOf(parts[2])][4];
 			if(parts[0].equals("element") && parts[1].equals("face"))
 				faces=new Face[Integer.valueOf(parts[2])];
 		}
 		for(int i=0; i<points.length; i++) {
 			ligne=br.readLine();
 			String[] parts=ligne.split(" ");
-			points[i]=new Point3D(Float.valueOf(parts[0]),Float.valueOf(parts[1]),Float.valueOf(parts[2]));
+			points[i][0]=Float.valueOf(parts[0]);
+			points[i][1]=Float.valueOf(parts[1]);
+			points[i][2]=Float.valueOf(parts[2]);
+			points[i][3]=1;
 		}
+		ensemblePoints=new MatriceFloat(points);
 		for(int i=0; i<faces.length; i++) {
 			ligne=br.readLine();
 			String[] parts=ligne.split(" ");
-			Point3D[] tmp=new Point3D[Integer.valueOf(parts[0])];
+			float[][] tmp=new float[Integer.valueOf(parts[0])][4];
 			for(int j=0; j<tmp.length; j++)
 				tmp[j]=points[Integer.valueOf(parts[j+1])];
 			faces[i]=new Face(tmp);
@@ -34,6 +40,10 @@ class Modele {
 		br.close();
 		ajustePoints();
 		triFaces();
+	}
+	
+	float[][] getPoints() {
+		return ensemblePoints.getMatrice();
 	}
 
 	Face[] getFaces() {
@@ -57,30 +67,34 @@ class Modele {
 	}
 	
 	private float getXMin() {
+		float[][] points=ensemblePoints.getMatrice();
 		float min=Float.MAX_VALUE;
-		for(Point3D p : points)
-			if(p.x<min) min=p.x;
+		for(int i=0; i<points.length; i++)
+			if(points[i][0]<min) min=points[i][0];
 		return min;
 	}
 	
 	private float getXMax() {
+		float[][] points=ensemblePoints.getMatrice();
 		float max=Float.MIN_VALUE;
-		for(Point3D p : points)
-			if(p.x>max) max=p.x;
+		for(int i=0; i<points.length; i++)
+			if(points[i][0]>max) max=points[i][0];
 		return max;
 	}
 	
 	private float getYMin() {
+		float[][] points=ensemblePoints.getMatrice();
 		float min=Float.MAX_VALUE;
-		for(Point3D p : points)
-			if(p.y<min) min=p.y;
+		for(int i=0; i<points.length; i++)
+			if(points[i][1]<min) min=points[i][1];
 		return min;
 	}
 	
 	private float getYMax() {
+		float[][] points=ensemblePoints.getMatrice();
 		float max=Float.MIN_VALUE;
-		for(Point3D p : points)
-			if(p.y>max) max=p.y;
+		for(int i=0; i<points.length; i++)
+			if(points[i][1]>max) max=points[i][1];
 		return max;
 	}
 	
@@ -90,7 +104,7 @@ class Modele {
 	private void ajustePoints() {
 		//centrage : 
 		float middleX=(getXMin()+getXMax())/2, middleY=(getYMin()+getYMax())/2;
-		translation(Main.milieu.x-middleX, Main.milieu.y-middleY);
+		translation(Main.milieu.x-middleX, Main.milieu.y-middleY,0);
 		//zoom : 
 		float dx=getXMax()-getXMin();
 		float width=(float)(Main.fenetre.getWidth()*0.9), height=(float)(Main.fenetre.getHeight()*0.9);
@@ -101,29 +115,12 @@ class Modele {
 	}
 	
 	
-	/**
-	 * @param coeff
-	 * @param point
-	 * modifie les coordonees des points afin d'effectuer un zoom
-	 */
-	void zoom(float coeff,Point point) {
-		double x=point.getX(), y=point.getY();
-		for(Point3D p : points) {
-			p.x=(float)(x+coeff*(p.x-x));
-			p.y=(float)(y+coeff*(p.y-y));
-			p.z/=coeff;
-		}	
+	boolean zoom(float coeff,Point point) {
+		float x=(float)point.getX(), y=(float)point.getY();
+		return ensemblePoints.transformation(MatriceFloat.homothetie(coeff, x, y));
 	}
 	
-	/**
-	 * @param x
-	 * @param y
-	 * modifie les coordonees des points afin d'effectuer une translation.
-	 */
-	void translation(float x, float y) {
-		for(Point3D p : points) {
-			p.x+=x;
-			p.y+=y;
-		}
+	boolean translation(float x, float y, float z) {
+		return ensemblePoints.transformation(MatriceFloat.translation(x, y, z));
 	}
 }

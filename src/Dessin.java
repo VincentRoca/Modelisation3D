@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 class Dessin extends JPanel {
 	
 	static final byte ALL=0, ARETES=1, FACES=2;
-	private Modele modele;
+	private final Modele modele;
 	private byte type;
 	
 	Dessin(final Modele modele) {
@@ -43,7 +43,7 @@ class Dessin extends JPanel {
 		Face[] faces=modele.getFaces();
 		for(int i=0; i<faces.length; i++) {
 			Face f=faces[i];
-			Point3D[] points=f.getPoints();
+			float[][] points=f.getPoints();
 			int[] x=null, y=null;
 			if(type !=ARETES) {
 				x=new int[points.length];
@@ -51,10 +51,10 @@ class Dessin extends JPanel {
 			}
 			if(type!=FACES) g.setColor(new Color(0,0,0));
 			for(int j=0; j<points.length; j++) {
-				if(type!=FACES) g.drawLine(Math.round(points[j].x), Math.round(points[j].y), Math.round(points[(j+1)%points.length].x), Math.round(points[(j+1)%points.length].y));
+				if(type!=FACES) g.drawLine(Math.round(points[j][0]), Math.round(points[j][1]), Math.round(points[(j+1)%points.length][0]), Math.round(points[(j+1)%points.length][1]));
 				if(type!=ARETES){
-					x[j]=Math.round(points[j].x);
-					y[j]=Math.round(points[j].y);
+					x[j]=Math.round(points[j][0]);
+					y[j]=Math.round(points[j][1]);
 				}
 			}
 			if(type!=ARETES) {
@@ -73,7 +73,7 @@ class Dessin extends JPanel {
 				p=e.getPoint();
 			else {
 				Point nouveau=e.getPoint();
-				modele.translation((float)(nouveau.getX()-p.getX()), (float)(nouveau.getY()-p.getY()));
+				modele.translation((float)(nouveau.getX()-p.getX()), (float)(nouveau.getY()-p.getY()),0);
 				repaint();
 				p=nouveau;
 			}

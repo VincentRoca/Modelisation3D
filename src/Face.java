@@ -2,27 +2,27 @@ import java.awt.Color;
 
 class Face {
 	
-	private Point3D[] points;
-	//private Color color=new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
-	private Color color=Color.LIGHT_GRAY;
+	private float[][] points;
+	private Color color=new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
 	
-	Point3D[] getPoints() {
+	float[][] getPoints() {
 		return points;
 	}
 	
-	Face(Point3D[] points) {
+	Face(float[][] points) {
 		this.points=points;
 	}
 	
 	Color getColor() {
 		return color;
 	}
-	
+
 	float getSommeZ() {
 		float res=0;
-		for(Point3D p : points)
-			res+=p.z;
+		for(int i=0; i<points.length; i++)
+			res+=points[i][2];
 		return res;
 	}
 	
 }
+
