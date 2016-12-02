@@ -26,12 +26,13 @@ abstract class Geometrie {
 		return translation((float)Main.milieu.getX()-middleX, (float)Main.milieu.getY()-middleY, 0).produit(homothetie(rapport, Main.milieu.x, Main.milieu.y, 0));
 	}
 	
-	static MatriceFloat rotationX(double angle) {
+	static MatriceFloat rotationX(double angle,float[] centre) {
 		float[][] m=new float[4][4];
 		m[0][0]=1; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=(float)Math.cos(angle); m[1][2]=(float)Math.sin(angle); m[1][3]=0;
 		m[2][0]=0; m[2][1]=(float)-Math.sin(angle); m[2][2]=(float)Math.cos(angle); m[3][2]=0;
-		m[3][0]=0; m[3][1]=0; m[3][2]=0; m[3][3]=1;
+		m[3][0]=0; m[3][1]=(float)(centre[1]*(-Math.cos(angle)+1)+centre[2]*Math.sin(angle));
+		m[3][2]=(float)(centre[2]*(-Math.cos(angle)+1)-centre[1]*Math.sin(angle)); m[3][3]=1;
 		return new MatriceFloat(m);
 	}
 	
