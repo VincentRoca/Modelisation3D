@@ -26,6 +26,8 @@ class Dessin extends JPanel {
 					//modele.ajustePoints();
 				else if(e.getButton()==MouseEvent.BUTTON1)
 					modele.rotationY(Math.PI/15);
+				else if(e.getButton()==MouseEvent.BUTTON2)
+					modele.rotationX(Math.PI/15);
 				repaint();
 			}
 		});
