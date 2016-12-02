@@ -1,9 +1,11 @@
 import java.awt.Color;
 
+
 class Face {
 	
 	private float[][] points;
-	private Color color=Color.BLUE;
+	int r=(int) (Math.random()*256);
+	private Color color=new Color(r,r,r);
 	
 	float[][] getPoints() {
 		return points;
