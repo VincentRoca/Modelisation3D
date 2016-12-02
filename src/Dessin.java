@@ -19,6 +19,16 @@ class Dessin extends JPanel {
 	
 	Dessin(final Modele modele) {
 		this.modele=modele;
+		addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton()==MouseEvent.BUTTON3) 
+					modele.rotationZ(Math.PI/15);
+					//modele.ajustePoints();
+				else if(e.getButton()==MouseEvent.BUTTON1)
+					modele.rotationY(Math.PI/15);
+				repaint();
+			}
+		});
 		addMouseWheelListener(new MouseWheelListener() {
 
 			public void mouseWheelMoved(MouseWheelEvent e) {
@@ -29,7 +39,30 @@ class Dessin extends JPanel {
 				repaint();
 			}
 		});
-		addMouseMotionListener(new DragListener());
+		addMouseMotionListener(new MouseMotionAdapter() {
+			
+			private Point p;
+			
+			public void mouseDragged(MouseEvent e) {
+				if(p==null)
+					p=e.getPoint();
+				else {
+					Point nouveau=e.getPoint();
+					//modele.translation((float)(nouveau.getX()-p.getX()), (float)(nouveau.getY()-p.getY()),0);
+					//double valeur=(nouveau.getX()-p.getX())%Math.PI;
+					//modele.rotationX(valeur);
+					repaint();
+					p=nouveau;
+				}
+				((JPanel)e.getSource()).addMouseListener(new MouseAdapter() {
+					
+					public void mouseReleased(MouseEvent e) {
+						p=null;
+					}
+				});
+				
+			}
+		});
 	}
 	
 	void setType(byte type) {
@@ -61,28 +94,6 @@ class Dessin extends JPanel {
 				g.setColor(f.getColor());
 				g.fillPolygon(x, y, x.length);
 			}
-		}
-	}
-	
-	private class DragListener extends MouseMotionAdapter {
-		
-		private Point p;
-		
-		public void mouseDragged(MouseEvent e) {
-			if(p==null)
-				p=e.getPoint();
-			else {
-				Point nouveau=e.getPoint();
-				modele.translation((float)(nouveau.getX()-p.getX()), (float)(nouveau.getY()-p.getY()),0);
-				repaint();
-				p=nouveau;
-			}
-			((JPanel)e.getSource()).addMouseListener(new MouseAdapter() {
-				
-				public void mouseReleased(MouseEvent e) {
-					p=null;
-				}
-			});
 		}
 	}
 	
