@@ -54,7 +54,7 @@ class Modele {
 	 * Trie les faces suivant la valeur de la coordonnee z de leur isobarycentre
 	 */
 	private void triFaces() {
-		boolean sorted=false;
+		/*boolean sorted=false;
 		for(int i=faces.length-1; i>=1 && !sorted; i--) {
 			sorted=true;
 			for(int j=0; j<i; j++)
@@ -64,6 +64,26 @@ class Modele {
 					faces[j+1]=tmp;
 					sorted=false;
 				}
+		}*/
+		float[] values=new float[faces.length]; // on instancie un tableau avec la valeur du parametre z des barycentres
+		for(int i=0; i<values.length; i++)
+			values[i]=faces[i].isobarycentre()[2];
+		int last=faces.length-1;
+		while(last!=0) {
+			int last2=0;
+			for(int cur=0; cur<last; cur++) {
+				if(values[cur]<values[cur+1]) {
+					Face tmp=faces[cur];
+					faces[cur]=faces[cur+1];
+					faces[cur+1]=tmp;
+					
+					float tmp2=values[cur];
+					values[cur]=values[cur+1];
+					values[cur+1]=tmp2;
+					last2=cur;
+				}
+			}
+			last=last2;
 		}
 	}
 	
