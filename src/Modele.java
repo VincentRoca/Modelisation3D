@@ -51,17 +51,18 @@ class Modele {
 	}
 	
 	/**
-	 * Trie les faces suivant la valeur moyenne du parametre z
+	 * Trie les faces suivant la valeur de la coordonnee z de leur isobarycentre
 	 */
 	private void triFaces() {
 		boolean sorted=false;
 		for(int i=faces.length-1; i>=1 && !sorted; i--) {
 			sorted=true;
 			for(int j=0; j<i; j++)
-				if(faces[j].getSommeZ()<faces[j+1].getSommeZ()) {
+				if(faces[j].isobarycentre()[2]<faces[j+1].isobarycentre()[2]) {
 					Face tmp=faces[j];
 					faces[j]=faces[j+1];
 					faces[j+1]=tmp;
+					sorted=false;
 				}
 		}
 	}
@@ -101,26 +102,35 @@ class Modele {
 	/**
 	 * ajuste les coordonnees de la figure pour un centrage et un zoom correct
 	 */
-	private void ajustePoints() {
-		//centrage : 
+	void ajustePoints() {
 		float middleX=(getXMin()+getXMax())/2, middleY=(getYMin()+getYMax())/2;
-		translation(Main.milieu.x-middleX, Main.milieu.y-middleY,0);
-		//zoom : 
-		float dx=getXMax()-getXMin();
+		float dx=getXMax()-getXMin(), dy=getYMax()-getYMin();
 		float width=(float)(Main.fenetre.getWidth()*0.9), height=(float)(Main.fenetre.getHeight()*0.9);
-		zoom(width/dx,Main.milieu);
-		float dy=getYMax()-getYMin();
-		if(dy>Main.fenetre.getHeight())
-			zoom(height/dy,Main.milieu);
+		ensemblePoints.transformation(Geometrie.cadrage(middleX, middleY, dx, dy, width, height));
 	}
 	
-	
-	boolean zoom(float coeff,Point point) {
+	void zoom(float coeff,Point point) {
 		float x=(float)point.getX(), y=(float)point.getY();
-		return ensemblePoints.transformation(MatriceFloat.homothetie(coeff, x, y));
+		ensemblePoints.transformation(Geometrie.homothetie(coeff, x, y,0));
 	}
 	
-	boolean translation(float x, float y, float z) {
-		return ensemblePoints.transformation(MatriceFloat.translation(x, y, z));
+	void translation(float x, float y, float z) {
+		ensemblePoints.transformation(Geometrie.translation(x, y, z));
 	}
+	
+	void rotationX(double angle) {
+		ensemblePoints.transformation(Geometrie.rotationX(angle));
+		triFaces();
+	}
+	
+	void rotationZ(double angle) {
+		ensemblePoints.transformation(Geometrie.rotationZ(angle));
+		triFaces();
+	}
+	
+	void rotationY(double angle) {
+		ensemblePoints.transformation(Geometrie.rotationY(angle,Geometrie.isobarycentre(getPoints())));
+		triFaces();
+	}
+
 }
