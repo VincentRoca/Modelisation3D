@@ -16,8 +16,8 @@ public class References {
 	
 	public static int echelleX=30;
 	public static int echelleY=30;
-	public static int echelleZ=15;
+	public static int echelleZ=15; 
 	
 
-
+ 
 }
