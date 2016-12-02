@@ -36,13 +36,13 @@ abstract class Geometrie {
 		return new MatriceFloat(m);
 	}
 	
-	static MatriceFloat rotationZ(double angle) {
+	static MatriceFloat rotationZ(double angle, float[] centre) {
 		float[][] m=new float[4][4];
 		m[0][0]=(float)Math.cos(angle); m[0][1]=(float)Math.sin(angle); m[0][2]=0; m[0][3]=0;
 		m[1][0]=(float)-Math.sin(angle); m[1][1]=(float)Math.cos(angle); m[1][2]=0; m[1][3]=0;
 		m[2][0]=0; m[2][1]=0; m[2][2]=1; m[3][2]=0;
-		m[3][0]=(float)(Main.milieu.getX()*(-Math.cos(angle)+1)+Main.milieu.getY()*Math.sin(angle)); 
-		m[3][1]=(float)(Main.milieu.getX()*(-Math.cos(angle)+1)-Main.milieu.getX()*Math.sin(angle)); 
+		m[3][0]=(float)(centre[0]*(-Math.cos(angle)+1)+centre[1]*Math.sin(angle)); 
+		m[3][1]=(float)(centre[0]*(-Math.cos(angle)+1)-centre[0]*Math.sin(angle)); 
 		m[3][2]=0; m[3][3]=1;
 		return new MatriceFloat(m);
 	}

@@ -52,7 +52,7 @@ class Dessin extends JPanel {
 					Point nouveau=e.getPoint();
 					//modele.translation((float)(nouveau.getX()-p.getX()), (float)(nouveau.getY()-p.getY()),0);
 					//double valeur=(nouveau.getX()-p.getX())%Math.PI;
-					//modele.rotationX(valeur);
+					//modele.rotationX(valeur/10);
 					repaint();
 					p=nouveau;
 				}

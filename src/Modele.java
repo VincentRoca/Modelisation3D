@@ -144,7 +144,7 @@ class Modele {
 	}
 	
 	void rotationZ(double angle) {
-		ensemblePoints.transformation(Geometrie.rotationZ(angle));
+		ensemblePoints.transformation(Geometrie.rotationZ(angle,Geometrie.isobarycentre(getPoints())));
 		triFaces();
 	}
 	
