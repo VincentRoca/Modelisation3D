@@ -33,11 +33,18 @@ class MatriceFloat {
 		for(int i=0; i<matrice.length; i++)
 			for(int j=0; j<matrice[0].length; j++)
 				matrice[i][j]=m.matrice[i][j];
-	}
+	} 
 	
 	float[][] getMatrice() {
 		return matrice;
 	}
+	
+	/** 
+	 * 
+	 * @param i coordonne du tableau de matrice
+	 * @param j
+	 * @return le float en position i,j de la matrice 
+	 */
 	float get(int i,int j){
 		return matrice[i][j];
 	}
