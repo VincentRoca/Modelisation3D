@@ -25,7 +25,7 @@ class MatriceFloat {
 	}
 	
 	/**
-	 * Effectue le produit de la matrice courante avec celle du param�tre et range le r�sultat dans l'objet courant
+	 * Effectue le produit de la matrice courante avec celle du param�tre et modifie dans l'objet courant
 	 * @param m2 matrice en facteur
 	 */
 	void transformation(MatriceFloat m2) {
@@ -38,5 +38,7 @@ class MatriceFloat {
 	float[][] getMatrice() {
 		return matrice;
 	}
-	
+	float get(int i,int j){
+		return matrice[i][j];
+	}
 }
