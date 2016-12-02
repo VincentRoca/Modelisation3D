@@ -17,11 +17,8 @@ class Face {
 		return color;
 	}
 
-	float getSommeZ() {
-		float res=0;
-		for(int i=0; i<points.length; i++)
-			res+=points[i][2];
-		return res;
+	float[] isobarycentre() {
+		return Geometrie.isobarycentre(points);
 	}
 	
 }
