@@ -51,28 +51,17 @@ class Modele {
 	}
 	
 	/**
-	 * Trie les faces suivant la valeur de la coordonnee z de leur isobarycentre
+	 * Trie les faces suivant la valeur moyenne de la coordonnee z 
 	 */
 	private void triFaces() {
-		/*boolean sorted=false;
-		for(int i=faces.length-1; i>=1 && !sorted; i--) {
-			sorted=true;
-			for(int j=0; j<i; j++)
-				if(faces[j].isobarycentre()[2]<faces[j+1].isobarycentre()[2]) {
-					Face tmp=faces[j];
-					faces[j]=faces[j+1];
-					faces[j+1]=tmp;
-					sorted=false;
-				}
-		}*/
 		float[] values=new float[faces.length]; // on instancie un tableau avec la valeur du parametre z des barycentres
 		for(int i=0; i<values.length; i++)
-			values[i]=faces[i].isobarycentre()[2];
+			values[i]=faces[i].moyenneZ();
 		int last=faces.length-1;
 		while(last!=0) {
 			int last2=0;
 			for(int cur=0; cur<last; cur++) {
-				if(values[cur]<values[cur+1]) {
+				if(values[cur]>values[cur+1]) {
 					Face tmp=faces[cur];
 					faces[cur]=faces[cur+1];
 					faces[cur+1]=tmp;
@@ -138,18 +127,25 @@ class Modele {
 		ensemblePoints.transformation(Geometrie.translation(x, y, z));
 	}
 	
-	void rotationX(double angle) {
+	/*void rotationX(double angle) {
 		ensemblePoints.transformation(Geometrie.rotationX(angle,Geometrie.isobarycentre(getPoints())));
 		triFaces();
-	}
+	}*/
 	
 	void rotationZ(double angle) {
 		ensemblePoints.transformation(Geometrie.rotationZ(angle,Geometrie.isobarycentre(getPoints())));
 		triFaces();
 	}
 	
-	void rotationY(double angle) {
+	/*void rotationY(double angle) {
 		ensemblePoints.transformation(Geometrie.rotationY(angle,Geometrie.isobarycentre(getPoints())));
+		triFaces();
+	}*/
+
+	void rotation(Point p, Point nouveau) {
+		float[] point=Geometrie.isobarycentre(getPoints());
+		ensemblePoints.transformation(Geometrie.rotationX(-((nouveau.getY()-p.getY())/400)%(2*Math.PI),point)
+				.produit(Geometrie.rotationY(((nouveau.getX()-p.getX())/400)%(2*Math.PI), point)));
 		triFaces();
 	}
 

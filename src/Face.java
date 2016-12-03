@@ -4,7 +4,7 @@ import java.awt.Color;
 class Face {
 	
 	private float[][] points;
-	int r=(int) (Math.random()*256);
+	private int r=(int) (Math.random()*256);
 	private Color color=new Color(r,r,r);
 	
 	float[][] getPoints() {
@@ -19,8 +19,11 @@ class Face {
 		return color;
 	}
 
-	float[] isobarycentre() {
-		return Geometrie.isobarycentre(points);
+	float moyenneZ() {
+		float s=0;
+		for(int i=0; i<points.length; i++)
+			s+=points[i][2];
+		return s/points.length;
 	}
 	
 }

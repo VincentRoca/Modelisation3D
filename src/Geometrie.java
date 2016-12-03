@@ -19,6 +19,16 @@ abstract class Geometrie {
 		return new MatriceFloat(m);
 	}
 	
+	/**
+	 * Matrice permettant de cadrer un ensemble de points au centre et à taille suffisante sur l'écran
+	 * @param middleX milieu des points sur la dimension X
+	 * @param middleY milieu des points sur la dimension Y
+	 * @param dx différence entre valeur maximale et valeur minimale sur la dimension X
+	 * @param dy différence entre valeur maximale et valeur minimale sur la dimens
+	 * @param width nouvelle largeur de la figure
+	 * @param height nouvelle hauteur de la figure
+	 * @return la matrice de transformation
+	 */
 	static MatriceFloat cadrage(float middleX, float middleY, float dx, float dy, float width, float height) {
 		float rapport;
 		if(width/dx>height/dy) rapport=height/dy;

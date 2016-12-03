@@ -10,7 +10,9 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
-
+/**
+ * Cette classe permet d'afficher un modele et fourni et gère les actions à effectuer en fonction des évènements utilisateur. 
+ */
 class Dessin extends JPanel {
 	
 	static final byte ALL=0, ARETES=1, FACES=2;
@@ -23,11 +25,6 @@ class Dessin extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getButton()==MouseEvent.BUTTON3) 
 					modele.rotationZ(Math.PI/15);
-					//modele.ajustePoints();
-				else if(e.getButton()==MouseEvent.BUTTON1)
-					modele.rotationY(Math.PI/15);
-				else if(e.getButton()==MouseEvent.BUTTON2)
-					modele.rotationX(Math.PI/15);
 				repaint();
 			}
 		});
@@ -50,9 +47,7 @@ class Dessin extends JPanel {
 					p=e.getPoint();
 				else {
 					Point nouveau=e.getPoint();
-					//modele.translation((float)(nouveau.getX()-p.getX()), (float)(nouveau.getY()-p.getY()),0);
-					//double valeur=(nouveau.getX()-p.getX())%Math.PI;
-					//modele.rotationX(valeur/10);
+					modele.rotation(p,nouveau);
 					repaint();
 					p=nouveau;
 				}
