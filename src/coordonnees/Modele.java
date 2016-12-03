@@ -132,20 +132,10 @@ public class Modele {
 		ensemblePoints.transformation(Geometrie.translation(x, y, z));
 	}
 	
-	/*void rotationX(double angle) {
-		ensemblePoints.transformation(Geometrie.rotationX(angle,Geometrie.isobarycentre(getPoints())));
-		triFaces();
-	}*/
-	
 	public void rotationZ(double angle) {
 		ensemblePoints.transformation(Geometrie.rotationZ(angle,Geometrie.isobarycentre(getPoints())));
 		triFaces();
 	}
-	
-	/*void rotationY(double angle) {
-		ensemblePoints.transformation(Geometrie.rotationY(angle,Geometrie.isobarycentre(getPoints())));
-		triFaces();
-	}*/
 
 	public void rotation(Point p, Point nouveau) {
 		float[] point=Geometrie.isobarycentre(getPoints());
