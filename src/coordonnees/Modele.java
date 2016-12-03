@@ -1,15 +1,20 @@
+package coordonnees;
 import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-class Modele {
+import affichage.Main;
+import maths.Geometrie;
+import maths.MatriceFloat;
+
+public class Modele {
 
 	private Face[] faces;
 	
 	private MatriceFloat ensemblePoints;
 
-	Modele(String fileName) throws IOException  {
+	public Modele(String fileName) throws IOException  {
 		float[][] points=null;
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		String ligne;
@@ -46,7 +51,7 @@ class Modele {
 		return ensemblePoints.getMatrice();
 	}
 
-	Face[] getFaces() {
+	public Face[] getFaces() {
 		return faces;
 	}
 	
@@ -118,7 +123,7 @@ class Modele {
 		ensemblePoints.transformation(Geometrie.cadrage(middleX, middleY, dx, dy, width, height));
 	}
 	
-	void zoom(float coeff,Point point) {
+	public void zoom(float coeff,Point point) {
 		float x=(float)point.getX(), y=(float)point.getY();
 		ensemblePoints.transformation(Geometrie.homothetie(coeff, x, y,0));
 	}
@@ -132,7 +137,7 @@ class Modele {
 		triFaces();
 	}*/
 	
-	void rotationZ(double angle) {
+	public void rotationZ(double angle) {
 		ensemblePoints.transformation(Geometrie.rotationZ(angle,Geometrie.isobarycentre(getPoints())));
 		triFaces();
 	}
@@ -142,7 +147,7 @@ class Modele {
 		triFaces();
 	}*/
 
-	void rotation(Point p, Point nouveau) {
+	public void rotation(Point p, Point nouveau) {
 		float[] point=Geometrie.isobarycentre(getPoints());
 		ensemblePoints.transformation(Geometrie.rotationX(-((nouveau.getY()-p.getY())/400)%(2*Math.PI),point)
 				.produit(Geometrie.rotationY(((nouveau.getX()-p.getX())/400)%(2*Math.PI), point)));

@@ -1,13 +1,14 @@
+package coordonnees;
 import java.awt.Color;
 
 
-class Face {
+public class Face {
 	
 	private float[][] points;
 	private int r=(int) (Math.random()*256);
 	private Color color=new Color(r,r,r);
 	
-	float[][] getPoints() {
+	public float[][] getPoints() {
 		return points;
 	}
 	
@@ -15,7 +16,7 @@ class Face {
 		this.points=points;
 	}
 	
-	Color getColor() {
+	public Color getColor() {
 		return color;
 	}
 

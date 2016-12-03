@@ -1,7 +1,9 @@
+package maths;
+import affichage.Main;
 
-abstract class Geometrie {
+public abstract class Geometrie {
 
-	static MatriceFloat translation(float x, float y, float z) {
+	public static MatriceFloat translation(float x, float y, float z) {
 		float[][] m=new float[4][4];
 		m[0][0]=1; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=1; m[1][2]=0; m[1][3]=0;
@@ -10,7 +12,7 @@ abstract class Geometrie {
 		return new MatriceFloat(m);
 	}
 	
-	static MatriceFloat homothetie(float rapport, float x, float y, float z) {
+	public static MatriceFloat homothetie(float rapport, float x, float y, float z) {
 		float[][] m=new float[4][4];
 		m[0][0]=rapport; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=rapport; m[1][2]=0; m[1][3]=0;
@@ -29,14 +31,14 @@ abstract class Geometrie {
 	 * @param height nouvelle hauteur de la figure
 	 * @return la matrice de transformation
 	 */
-	static MatriceFloat cadrage(float middleX, float middleY, float dx, float dy, float width, float height) {
+	public static MatriceFloat cadrage(float middleX, float middleY, float dx, float dy, float width, float height) {
 		float rapport;
 		if(width/dx>height/dy) rapport=height/dy;
 		else rapport=width/dx;
 		return translation((float)Main.milieu.getX()-middleX, (float)Main.milieu.getY()-middleY, 0).produit(homothetie(rapport, Main.milieu.x, Main.milieu.y, 0));
 	}
 	
-	static MatriceFloat rotationX(double angle,float[] centre) {
+	public static MatriceFloat rotationX(double angle,float[] centre) {
 		float[][] m=new float[4][4];
 		m[0][0]=1; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=(float)Math.cos(angle); m[1][2]=(float)Math.sin(angle); m[1][3]=0;
@@ -46,7 +48,7 @@ abstract class Geometrie {
 		return new MatriceFloat(m);
 	}
 	
-	static MatriceFloat rotationZ(double angle, float[] centre) {
+	public static MatriceFloat rotationZ(double angle, float[] centre) {
 		float[][] m=new float[4][4];
 		m[0][0]=(float)Math.cos(angle); m[0][1]=(float)Math.sin(angle); m[0][2]=0; m[0][3]=0;
 		m[1][0]=(float)-Math.sin(angle); m[1][1]=(float)Math.cos(angle); m[1][2]=0; m[1][3]=0;
@@ -57,7 +59,7 @@ abstract class Geometrie {
 		return new MatriceFloat(m);
 	}
 	
-	static MatriceFloat rotationY(double angle, float[] centre) {
+	public static MatriceFloat rotationY(double angle, float[] centre) {
 		float[][] m=new float[4][4];
 		m[0][0]=(float)Math.cos(angle); m[0][1]=0; m[0][2]=(float)-Math.sin(angle); m[0][3]=0;
 		m[1][0]=0; m[1][1]=1; m[1][2]=0; m[1][3]=0;
@@ -68,7 +70,7 @@ abstract class Geometrie {
 		return new MatriceFloat(m);
 	}
 
-	static float[] isobarycentre(float[][] points) {
+	public static float[] isobarycentre(float[][] points) {
 		float[] res=new float[]{0,0,0};
 		for(int i=0; i<points.length; i++) 
 			for(int j=0; j<3; j++)

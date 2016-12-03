@@ -1,9 +1,10 @@
+package maths;
 
-class MatriceFloat {
+public class MatriceFloat {
 
 	private float[][] matrice;
 	
-	MatriceFloat(float[][] matrice) {
+	public MatriceFloat(float[][] matrice) {
 		this.matrice=matrice;
 	}
 	
@@ -12,7 +13,7 @@ class MatriceFloat {
 	 * @param m2 matrice en facteur
 	 * @return matrice resultante 
 	 */
-	MatriceFloat produit(MatriceFloat m2) {
+	public MatriceFloat produit(MatriceFloat m2) {
 		float[][] res=new float[matrice.length][m2.matrice[0].length];
 		for(int l=0; l<res.length; l++)
 			for(int c=0; c<res[0].length; c++) {
@@ -28,14 +29,14 @@ class MatriceFloat {
 	 * Effectue le produit de la matrice courante avec celle du param�tre et modifie dans l'objet courant
 	 * @param m2 matrice en facteur
 	 */
-	void transformation(MatriceFloat m2) {
+	public void transformation(MatriceFloat m2) {
 		MatriceFloat m=produit(m2);
 		for(int i=0; i<matrice.length; i++)
 			for(int j=0; j<matrice[0].length; j++)
 				matrice[i][j]=m.matrice[i][j];
 	} 
 	
-	float[][] getMatrice() {
+	public float[][] getMatrice() {
 		return matrice;
 	}
 	
@@ -45,7 +46,7 @@ class MatriceFloat {
 	 * @param j
 	 * @return le float en position i,j de la matrice 
 	 */
-	float get(int i,int j){
+	public float get(int i,int j){
 		return matrice[i][j];
 	}
 }

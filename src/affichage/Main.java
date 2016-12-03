@@ -1,3 +1,4 @@
+package affichage;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -5,11 +6,13 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import coordonnees.Modele;
 
-class Main {
+
+public class Main {
 	
-	static Point milieu;
-	static Rectangle fenetre;
+	public static Point milieu;
+	public static Rectangle fenetre;
 
 	public static void main(String[] args) {
 		try {

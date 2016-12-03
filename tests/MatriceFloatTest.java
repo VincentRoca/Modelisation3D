@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import maths.MatriceFloat;
+
 public class MatriceFloatTest {
 
 	@Test
