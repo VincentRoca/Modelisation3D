@@ -1,3 +1,4 @@
+import java.awt.Scrollbar;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,15 +8,22 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 
+import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class DataBase {
 
 	Connection con;
+
+
 	//----------- ouvre la connection sue la DB-----------//
 	private void open(){
 		// --------load the sqlite-JDBC driver---------//
@@ -47,6 +55,14 @@ public class DataBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+
+	//---------------- remplie une chaine de caractere pour qu'elle en fasse 30 au total----------//
+	private String remplissage(String s){
+		for(int i =s.length();i<30;i++)
+			s=s+" ";
+		return s;
 	}
 
 
@@ -146,7 +162,11 @@ public class DataBase {
 		}
 		close();
 	}
-
+	/**
+	 * verifie que le chein vers le fichier placé en parametre existe et si c'est c'est un type .ply, si c'est le cas
+	 * il est copié dans le dossier data du projet
+	 * @param path
+	 */
 	public void addFile(String path){
 
 		try {
@@ -166,13 +186,51 @@ public class DataBase {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 
 
 	}
-	
+
+	/**
+	 * Selectionne tout les modeles et les affiches
+	 */
+	public void selectAll(){
+
+		open();
+		try {
+			Statement stmt = con.createStatement();
+			int nbLigne;
+
+			ResultSet rs = stmt.executeQuery("select count(*) as count from modele ");
+			rs.next();
+			nbLigne=rs.getInt("count");
+			String[] liste = new String[nbLigne];
+
+			rs = stmt.executeQuery("select * from modele");
+
+			JList<String> jliste= new JList<>(liste);
+
+			int i =0;
+			while(rs.next()) {
+				liste[i]=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))+rs.getString(4);
+				i++;
+			}
+			JFrame frame = new JFrame("tout les modeles");
+			JScrollPane pan = new JScrollPane();
+			frame.add(pan);
+			pan.setViewportView(jliste);
+			frame.setVisible(true);
+			frame.pack();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		close();
+	}
 
 }
 
