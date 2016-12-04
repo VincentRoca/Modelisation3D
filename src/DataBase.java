@@ -1,4 +1,4 @@
-import java.awt.Scrollbar;
+import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,10 +13,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 
+
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class DataBase {
@@ -194,7 +194,7 @@ public class DataBase {
 	}
 
 	/**
-	 * Selectionne tout les modeles et les affiches
+	 * Selectionne tout les modeles et les affiche
 	 */
 	public void selectAll(){
 
@@ -231,6 +231,55 @@ public class DataBase {
 		}
 		close();
 	}
+	
+	/**
+	 * Affiche une liste de modele qui selon un mot clé de recherche placé en arguments
+	 * @param s
+	 */
+	public void find(String s){
+		JFrame frame= new JFrame("recherche de modele avec le mot clé : \""+s+"\"");
+		JScrollPane scrollpan = new JScrollPane();
+	
+		try{
+			open();
+		Statement stmt = con.createStatement();
+		int nbLigne;
+
+		ResultSet rs = stmt.executeQuery("select count(*) as count from modele ");
+		rs.next();
+		nbLigne=rs.getInt("count");
+		final String[] liste= new String[nbLigne];
+
+		rs = stmt.executeQuery("select * from modele");
+
+		int i =0;
+		while(rs.next()) {
+			String data=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))+rs.getString(4);
+			if(rs.getString(4).contains(s)){
+				liste[i]=data;
+			}
+			i++;
+		}
+		
+		JList<String> jliste= new JList<>(liste);
+		scrollpan.setViewportView(jliste);
+		
+		close();
+				
+
+		frame.setLayout(new BorderLayout());
+		frame.add(scrollpan,BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+		
+		}catch(SQLException e){
+		System.out.println(e.getMessage());	
+		} 
+
+
+	}
+	
 
 }
 
