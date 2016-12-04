@@ -1,4 +1,0 @@
-Contribution au projet tuteuré de modélisation
-
-Création de la classe Database pour la gestion de la base de donées avec Adel.
-Ajout des méthodes "update" et "delete" dans cette même classe.
