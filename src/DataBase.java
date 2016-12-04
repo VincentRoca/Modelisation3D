@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,17 +16,19 @@ import java.util.Calendar;
 
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class DataBase {
 
-	Connection con;
+	static Connection con;
 
 
 	//----------- ouvre la connection sue la DB-----------//
-	private void open(){
+	private static void open(){
 		// --------load the sqlite-JDBC driver---------//
 
 		try {
@@ -48,7 +51,7 @@ public class DataBase {
 
 
 	//---------------- ferme la connection de la DB----------//
-	private void close(){
+	private static void close(){
 		try {
 			con.close();
 		} catch (SQLException e) {
@@ -59,7 +62,7 @@ public class DataBase {
 
 
 	//---------------- remplie une chaine de caractere pour qu'elle en fasse 30 au total----------//
-	private String remplissage(String s){
+	private static String remplissage(String s){
 		for(int i =s.length();i<30;i++)
 			s=s+" ";
 		return s;
@@ -144,7 +147,7 @@ public class DataBase {
 	 * Fonction qui permet de supprimer un tuple dans la base de donnÃ©es.
 	 * @param idSrc l'identifiant du tuple Ã  supprimer.
 	 */
-	public void delete(String idSrc){
+	public static void delete(String idSrc){
 		open();
 
 		try {
@@ -167,7 +170,7 @@ public class DataBase {
 	 * il est copié dans le dossier data du projet
 	 * @param path
 	 */
-	public void addFile(String path){
+	public static void addFile(String path){
 
 		try {
 			InputStream sourceFile = new java.io.FileInputStream(path); 
@@ -196,7 +199,7 @@ public class DataBase {
 	/**
 	 * Selectionne tout les modeles et les affiche
 	 */
-	public void selectAll(){
+	public static void selectAll(){
 
 		open();
 		try {
@@ -206,18 +209,18 @@ public class DataBase {
 			ResultSet rs = stmt.executeQuery("select count(*) as count from modele ");
 			rs.next();
 			nbLigne=rs.getInt("count");
-			String[] liste = new String[nbLigne];
+			String[] liste = new String[nbLigne+1];
 
 			rs = stmt.executeQuery("select * from modele");
 
 			JList<String> jliste= new JList<>(liste);
-
-			int i =0;
+			liste[0] = remplissage("NAME                           EMPLACEMENT                           DATE");
+			int i =1;
 			while(rs.next()) {
-				liste[i]=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))+rs.getString(4);
+				liste[i]=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))/*+rs.getString(4)*/;
 				i++;
 			}
-			JFrame frame = new JFrame("tout les modeles");
+			JFrame frame = new JFrame("Modeles");
 			JScrollPane pan = new JScrollPane();
 			frame.add(pan);
 			pan.setViewportView(jliste);
@@ -236,7 +239,8 @@ public class DataBase {
 	 * Affiche une liste de modele qui selon un mot clé de recherche placé en arguments
 	 * @param s
 	 */
-	public void find(String s){
+	//Le parametre doit etre une liste de string ( à refaire)
+	public static void find(String s){
 		JFrame frame= new JFrame("recherche de modele avec le mot clé : \""+s+"\"");
 		JScrollPane scrollpan = new JScrollPane();
 	
@@ -278,6 +282,66 @@ public class DataBase {
 		} 
 
 
+	}
+	
+	public static void getInfoModel(String file){
+		open();
+		try {
+			String name="";
+			String emplacement="";
+			String date="";
+			
+			Statement stmt = con.createStatement();
+			String[] liste = new String[2];
+			JList<String> jliste= new JList<>(liste);
+
+			ResultSet rs = stmt.executeQuery("select * from modele where id like '"+file+"'");
+			
+
+			while(rs.next()){
+				name = rs.getString(1);
+				emplacement = rs.getString(2);
+				date = rs.getString(3);
+			}
+			
+			if(name.equals("") && emplacement.equals("") && date.equals("")){
+				JOptionPane.showMessageDialog(null, "Le modele n'est pas présent dans la base de données", "Attention", JOptionPane.WARNING_MESSAGE);
+				System.exit(0);
+			}
+
+			JFrame frame = new JFrame("Informations sur le fichier : "+file);
+			JPanel pane = new JPanel();
+			pane.setLayout(new BorderLayout(0,0));
+			JPanel nom = new JPanel();
+			nom.setLayout(new BorderLayout(0,0));
+			nom.setPreferredSize(new Dimension(300,50));
+			nom.add(new JLabel("Nom :"), BorderLayout.WEST);
+			nom.add(new JLabel(name), BorderLayout.EAST);
+			JPanel emp = new JPanel();
+			emp.setLayout(new BorderLayout(0,0));
+			emp.setPreferredSize(new Dimension(300,50));
+			emp.add(new JLabel("Emplacement :"), BorderLayout.WEST);
+			emp.add(new JLabel(emplacement), BorderLayout.EAST);
+			JPanel dat = new JPanel();
+			dat.setLayout(new BorderLayout(0,0));
+			emp.setPreferredSize(new Dimension(300,50));
+			dat.add(new JLabel("Date :"), BorderLayout.WEST);
+			dat.add(new JLabel(date), BorderLayout.EAST);
+			pane.add(nom, BorderLayout.NORTH);
+			pane.add(emp, BorderLayout.CENTER);
+			pane.add(dat, BorderLayout.SOUTH);
+			frame.getContentPane().add(pane);
+			frame.setPreferredSize(new Dimension(400,150));
+			frame.setVisible(true);
+			frame.pack();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		close();
+		
 	}
 	
 
