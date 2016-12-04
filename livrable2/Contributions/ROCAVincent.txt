@@ -1,0 +1,2 @@
+Contributions au projet :
+Développement versions finales zoom, rotation, cadrage, translation et aspects mathématiques du programme.
