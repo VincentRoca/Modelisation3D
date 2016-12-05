@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import affichage.Main;
 import maths.Geometrie;
@@ -59,26 +60,7 @@ public class Modele {
 	 * Trie les faces suivant la valeur moyenne de la coordonnee z 
 	 */
 	private void triFaces() {
-		float[] values=new float[faces.length]; // on instancie un tableau avec la valeur du parametre z des barycentres
-		for(int i=0; i<values.length; i++)
-			values[i]=faces[i].moyenneZ();
-		int last=faces.length-1;
-		while(last!=0) {
-			int last2=0;
-			for(int cur=0; cur<last; cur++) {
-				if(values[cur]>values[cur+1]) {
-					Face tmp=faces[cur];
-					faces[cur]=faces[cur+1];
-					faces[cur+1]=tmp;
-					
-					float tmp2=values[cur];
-					values[cur]=values[cur+1];
-					values[cur+1]=tmp2;
-					last2=cur;
-				}
-			}
-			last=last2;
-		}
+		Arrays.sort(faces,Face.comparateurZ);
 	}
 	
 	private float getXMin() {
