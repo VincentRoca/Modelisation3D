@@ -116,7 +116,7 @@ public class Modele {
 	/**
 	 * ajuste les coordonnees de la figure pour un centrage et un zoom correct
 	 */
-	void ajustePoints() {
+	public void ajustePoints() {
 		float middleX=(getXMin()+getXMax())/2, middleY=(getYMin()+getYMax())/2;
 		float dx=getXMax()-getXMin(), dy=getYMax()-getYMin();
 		float width=(float)(Main.fenetre.getWidth()*0.9), height=(float)(Main.fenetre.getHeight()*0.9);

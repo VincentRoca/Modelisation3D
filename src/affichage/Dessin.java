@@ -1,7 +1,9 @@
 package affichage;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,6 +11,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import coordonnees.Face;
@@ -25,13 +29,6 @@ class Dessin extends JPanel {
 	
 	Dessin(final Modele modele) {
 		this.modele=modele;
-		addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.getButton()==MouseEvent.BUTTON3) 
-					modele.rotationZ(Math.PI/15);
-				repaint();
-			}
-		});
 		addMouseWheelListener(new MouseWheelListener() {
 
 			public void mouseWheelMoved(MouseWheelEvent e) {
@@ -64,10 +61,36 @@ class Dessin extends JPanel {
 				
 			}
 		});
+		initPanelControle();
 	}
 	
 	void setType(byte type) {
 		this.type=type;
+	}
+	
+	private void initPanelControle() {
+		JPanel controle=new JPanel();
+		setLayout(null);
+		controle.setLayout(new BoxLayout(controle, BoxLayout.Y_AXIS));
+		add(controle);
+		controle.setBounds((int)(Main.fenetre.width*0.8),(int)(Main.fenetre.height*0.8), (int)(Main.fenetre.width*0.2), (int)(Main.fenetre.height*0.2));
+		controle.setBackground(Color.lightGray);
+		JButton rotation=new JButton("rotationZ");
+		controle.add(rotation);
+		JButton cadrage=new JButton("cadrage");
+		controle.add(cadrage);
+		rotation.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				modele.rotationZ(Math.PI/15);
+				repaint();
+			}
+		});
+		cadrage.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				modele.ajustePoints();
+				repaint();
+			}
+		});
 	}
 		
 	protected void paintComponent(Graphics g) {
