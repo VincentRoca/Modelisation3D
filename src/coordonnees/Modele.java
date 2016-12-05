@@ -110,7 +110,7 @@ public class Modele {
 		ensemblePoints.transformation(Geometrie.homothetie(coeff, x, y,0));
 	}
 	
-	void translation(float x, float y, float z) {
+	public void translation(float x, float y, float z) {
 		ensemblePoints.transformation(Geometrie.translation(x, y, z));
 	}
 	

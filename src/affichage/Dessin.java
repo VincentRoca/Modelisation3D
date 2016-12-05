@@ -12,6 +12,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import coordonnees.Face;
 import coordonnees.Modele;
@@ -46,7 +47,8 @@ class Dessin extends JPanel {
 					p=e.getPoint();
 				else {
 					Point nouveau=e.getPoint();
-					modele.rotation(p,nouveau);
+					if(SwingUtilities.isLeftMouseButton(e)) modele.rotation(p,nouveau);
+					else modele.translation((float)(nouveau.getX()-p.getX()),(float)(nouveau.getY()-p.getY()), 0);
 					repaint();
 					p=nouveau;
 				}
