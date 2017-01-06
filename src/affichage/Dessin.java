@@ -51,7 +51,6 @@ class Dessin extends JPanel implements Observer {
 					Point nouveau=e.getPoint();
 					if(SwingUtilities.isLeftMouseButton(e)) modele.rotation(p,nouveau);
 					else modele.translation((float)(nouveau.getX()-p.getX()),(float)(nouveau.getY()-p.getY()), 0);
-					p=nouveau;
 				}
 				((JPanel)e.getSource()).addMouseListener(new MouseAdapter() {
 					
