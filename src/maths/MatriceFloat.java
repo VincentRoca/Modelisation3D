@@ -1,5 +1,7 @@
 package maths;
 
+import java.util.Arrays;
+
 public class MatriceFloat {
 
 	private float[][] matrice;
@@ -48,5 +50,19 @@ public class MatriceFloat {
 	 */
 	public float get(int i,int j){
 		return matrice[i][j];
+	}
+
+	@Override
+	public String toString() {
+		System.out.println("toString ");
+		String res ="[[";
+		for (int i = 0; i < matrice.length; i++) {
+			for (int j = 0; j < matrice.length; j++) {
+				res+="; "+get(i,j);
+			}
+			res+="]\n[";
+		}
+		res+="]]";
+		return res;
 	}
 }
