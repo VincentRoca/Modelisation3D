@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,7 +22,7 @@ import coordonnees.Modele;
 /**
  * Cette classe permet d'afficher un modele et fourni et gère les actions à effectuer en fonction des évènements utilisateur. 
  */
-class Dessin extends JPanel {
+class Dessin extends JPanel implements Observer {
 	
 	static final byte ALL=0, ARETES=1, FACES=2;
 	private final Modele modele;
@@ -28,6 +30,7 @@ class Dessin extends JPanel {
 	
 	Dessin(final Modele modele) {
 		this.modele=modele;
+		modele.addObserver(this);
 		addMouseWheelListener(new MouseWheelListener() {
 
 			public void mouseWheelMoved(MouseWheelEvent e) {
@@ -35,7 +38,6 @@ class Dessin extends JPanel {
 					modele.zoom((float)0.8,e.getPoint());
 				else
 					modele.zoom((float)1.2,e.getPoint());
-				repaint();
 			}
 		});
 		addMouseMotionListener(new MouseMotionAdapter() {
@@ -49,7 +51,6 @@ class Dessin extends JPanel {
 					Point nouveau=e.getPoint();
 					if(SwingUtilities.isLeftMouseButton(e)) modele.rotation(p,nouveau);
 					else modele.translation((float)(nouveau.getX()-p.getX()),(float)(nouveau.getY()-p.getY()), 0);
-					repaint();
 					p=nouveau;
 				}
 				((JPanel)e.getSource()).addMouseListener(new MouseAdapter() {
@@ -82,13 +83,11 @@ class Dessin extends JPanel {
 		rotation.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				modele.rotationZ(Math.PI/15);
-				repaint();
 			}
 		});
 		cadrage.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				modele.ajustePoints();
-				repaint();
 			}
 		});
 	}
@@ -119,6 +118,11 @@ class Dessin extends JPanel {
 				g.fillPolygon(x, y, x.length);
 			}
 		}
+	}
+
+	public void update(Observable o, Object arg) {
+		System.out.println("ok");
+		repaint();
 	}
 	
 }

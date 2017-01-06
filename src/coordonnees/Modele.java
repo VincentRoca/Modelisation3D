@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Observable;
 
 import affichage.Main;
 import maths.Geometrie;
 import maths.MatriceFloat;
 
-public class Modele {
+public class Modele extends Observable {
 
 	private Face[] faces;
 	
@@ -103,20 +104,27 @@ public class Modele {
 		float dx=getXMax()-getXMin(), dy=getYMax()-getYMin();
 		float width=(float)(Main.fenetre.getWidth()*0.9), height=(float)(Main.fenetre.getHeight()*0.9);
 		ensemblePoints.transformation(Geometrie.cadrage(middleX, middleY, dx, dy, width, height));
+		notifyObservers();
 	}
 	
 	public void zoom(float coeff,Point point) {
 		float x=(float)point.getX(), y=(float)point.getY();
 		ensemblePoints.transformation(Geometrie.homothetie(coeff, x, y,0));
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void translation(float x, float y, float z) {
 		ensemblePoints.transformation(Geometrie.translation(x, y, z));
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void rotationZ(double angle) {
 		ensemblePoints.transformation(Geometrie.rotationZ(angle,Geometrie.isobarycentre(getPoints())));
 		triFaces();
+		setChanged();
+		notifyObservers();
 	}
 
 	public void rotation(Point p, Point nouveau) {
@@ -124,6 +132,8 @@ public class Modele {
 		ensemblePoints.transformation(Geometrie.rotationX(-((nouveau.getY()-p.getY())/400)%(2*Math.PI),point)
 				.produit(Geometrie.rotationY(((nouveau.getX()-p.getX())/400)%(2*Math.PI), point)));
 		triFaces();
+		setChanged();
+		notifyObservers();
 	}
 
 }
