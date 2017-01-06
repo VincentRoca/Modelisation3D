@@ -104,6 +104,7 @@ public class Modele extends Observable {
 		float dx=getXMax()-getXMin(), dy=getYMax()-getYMin();
 		float width=(float)(Main.fenetre.getWidth()*0.9), height=(float)(Main.fenetre.getHeight()*0.9);
 		ensemblePoints.transformation(Geometrie.cadrage(middleX, middleY, dx, dy, width, height));
+		setChanged();
 		notifyObservers();
 	}
 	
