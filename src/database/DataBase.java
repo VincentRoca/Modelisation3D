@@ -1,3 +1,5 @@
+package database;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
@@ -166,8 +168,8 @@ public class DataBase {
 		close();
 	}
 	/**
-	 * verifie que le chein vers le fichier placé en parametre existe et si c'est c'est un type .ply, si c'est le cas
-	 * il est copié dans le dossier data du projet
+	 * verifie que le chein vers le fichier placï¿½ en parametre existe et si c'est c'est un type .ply, si c'est le cas
+	 * il est copiï¿½ dans le dossier data du projet
 	 * @param path
 	 */
 	public static void addFile(String path){
@@ -236,12 +238,12 @@ public class DataBase {
 	}
 	
 	/**
-	 * Affiche une liste de modele qui selon un mot clé de recherche placé en arguments
+	 * Affiche une liste de modele qui selon un mot clï¿½ de recherche placï¿½ en arguments
 	 * @param s
 	 */
-	//Le parametre doit etre une liste de string ( à refaire)
+	//Le parametre doit etre une liste de string ( ï¿½ refaire)
 	public static void find(String s){
-		JFrame frame= new JFrame("recherche de modele avec le mot clé : \""+s+"\"");
+		JFrame frame= new JFrame("recherche de modele avec le mot clï¿½ : \""+s+"\"");
 		JScrollPane scrollpan = new JScrollPane();
 	
 		try{
@@ -305,7 +307,7 @@ public class DataBase {
 			}
 			
 			if(name.equals("") && emplacement.equals("") && date.equals("")){
-				JOptionPane.showMessageDialog(null, "Le modele n'est pas présent dans la base de données", "Attention", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Le modele n'est pas prï¿½sent dans la base de donnï¿½es", "Attention", JOptionPane.WARNING_MESSAGE);
 				System.exit(0);
 			}
 

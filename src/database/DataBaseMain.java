@@ -1,3 +1,5 @@
+package database;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -6,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -14,7 +17,7 @@ public class DataBaseMain {
 	public static void main(String[] args) throws Exception{
 		if(args.length==1) {
 			if(args[0].equals("--all")){
-				//Methode a modifier pour un affichage plus agréable
+				//Methode a modifier pour un affichage plus agrï¿½able
 				DataBase.selectAll();
 			}else if(args[0].equals("--add")){
 				JFrame frame= new JFrame("Ajout");
@@ -59,10 +62,15 @@ public class DataBaseMain {
 			}if(args[0].equals("--name")){
 				DataBase.getInfoModel(args[1]);
 			}
-		}else if(args[0].equals("--find")){
-			DataBase.find(args[1]);
+
+			else if(args[0].equals("--find")){
+				DataBase.find(args[1]);
+			}
 		}
-		else
-			throw new Exception();
+		else{
+			JOptionPane.showMessageDialog(null, "Mauvaise utilisation", "Attention", JOptionPane.WARNING_MESSAGE);
+		}
+			
+		
 	}
 }
