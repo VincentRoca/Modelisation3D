@@ -54,7 +54,6 @@ public class MatriceFloat {
 
 	@Override
 	public String toString() {
-		System.out.println("toString ");
 		String res ="[[";
 		for (int i = 0; i < matrice.length; i++) {
 			for (int j = 0; j < matrice.length; j++) {
