@@ -7,7 +7,7 @@ public abstract class Geometrie {
 		float[][] m=new float[4][4];
 		m[0][0]=1; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=1; m[1][2]=0; m[1][3]=0;
-		m[2][0]=0; m[2][1]=0; m[2][2]=1; m[3][2]=0;
+		m[2][0]=0; m[2][1]=0; m[2][2]=1; m[2][3]=0;
 		m[3][0]=x; m[3][1]=y; m[3][2]=z; m[3][3]=1;
 		return new MatriceFloat(m);
 	}
@@ -16,7 +16,7 @@ public abstract class Geometrie {
 		float[][] m=new float[4][4];
 		m[0][0]=rapport; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=rapport; m[1][2]=0; m[1][3]=0;
-		m[2][0]=0; m[2][1]=0; m[2][2]=rapport; m[3][2]=0;
+		m[2][0]=0; m[2][1]=0; m[2][2]=rapport; m[2][3]=0;
 		m[3][0]=x*(1-rapport); m[3][1]=y*(1-rapport); m[3][2]=z*(1-rapport); m[3][3]=1;
 		return new MatriceFloat(m);
 	}
@@ -42,7 +42,7 @@ public abstract class Geometrie {
 		float[][] m=new float[4][4];
 		m[0][0]=1; m[0][1]=0; m[0][2]=0; m[0][3]=0;
 		m[1][0]=0; m[1][1]=(float)Math.cos(angle); m[1][2]=(float)Math.sin(angle); m[1][3]=0;
-		m[2][0]=0; m[2][1]=(float)-Math.sin(angle); m[2][2]=(float)Math.cos(angle); m[3][2]=0;
+		m[2][0]=0; m[2][1]=(float)-Math.sin(angle); m[2][2]=(float)Math.cos(angle); m[2][3]=0;
 		m[3][0]=0; m[3][1]=(float)(centre[1]*(-Math.cos(angle)+1)+centre[2]*Math.sin(angle));
 		m[3][2]=(float)(centre[2]*(-Math.cos(angle)+1)-centre[1]*Math.sin(angle)); m[3][3]=1;
 		return new MatriceFloat(m);
@@ -52,7 +52,7 @@ public abstract class Geometrie {
 		float[][] m=new float[4][4];
 		m[0][0]=(float)Math.cos(angle); m[0][1]=(float)Math.sin(angle); m[0][2]=0; m[0][3]=0;
 		m[1][0]=(float)-Math.sin(angle); m[1][1]=(float)Math.cos(angle); m[1][2]=0; m[1][3]=0;
-		m[2][0]=0; m[2][1]=0; m[2][2]=1; m[3][2]=0;
+		m[2][0]=0; m[2][1]=0; m[2][2]=1; m[2][3]=0;
 		m[3][0]=(float)(centre[0]*(-Math.cos(angle)+1)+centre[1]*Math.sin(angle)); 
 		m[3][1]=(float)(centre[1]*(-Math.cos(angle)+1)-centre[0]*Math.sin(angle)); 
 		m[3][2]=0; m[3][3]=1;
@@ -63,7 +63,7 @@ public abstract class Geometrie {
 		float[][] m=new float[4][4];
 		m[0][0]=(float)Math.cos(angle); m[0][1]=0; m[0][2]=(float)-Math.sin(angle); m[0][3]=0;
 		m[1][0]=0; m[1][1]=1; m[1][2]=0; m[1][3]=0;
-		m[2][0]=(float)Math.sin(angle); m[2][1]=0; m[2][2]=(float)Math.cos(angle); m[3][2]=0;
+		m[2][0]=(float)Math.sin(angle); m[2][1]=0; m[2][2]=(float)Math.cos(angle); m[2][3]=0;
 		m[3][0]=(float)(centre[0]*(-Math.cos(angle)+1)-centre[2]*Math.sin(angle)); 
 		m[3][1]=0; 
 		m[3][2]=(float)(centre[2]*(-Math.cos(angle)+1)+centre[0]*Math.sin(angle)); m[3][3]=1;
