@@ -49,7 +49,7 @@ public class Modele extends Observable {
 		triFaces();
 	}
 	
-	float[][] getPoints() {
+	public float[][] getPoints() {
 		return ensemblePoints.getMatrice();
 	}
 
