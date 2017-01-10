@@ -114,6 +114,7 @@ class Dessin extends JPanel implements Observer {
 				}
 			}
 			if(type!=ARETES) {
+				f.defineG(Modele.lumiere);
 				g.setColor(f.getColor());
 				g.fillPolygon(x, y, x.length);
 			}
