@@ -71,7 +71,7 @@ public class DataBase {
 	}
 
 
-	public void initDB(){
+	public static void initDB(){
 		String[] filelist = new File("data").list();
 		open();
 
@@ -84,7 +84,7 @@ public class DataBase {
 			for(int i =0;i<filelist.length;i++){
 				if(filelist[i].endsWith(".ply")){
 					String id=filelist[i].substring(0, filelist[i].length()-4);
-					System.out.println(id);
+					//System.out.println(id);
 
 					//recupere la date
 					Calendar c = Calendar.getInstance();
@@ -149,7 +149,7 @@ public class DataBase {
 	 * Fonction qui permet de supprimer un tuple dans la base de données.
 	 * @param idSrc l'identifiant du tuple à supprimer.
 	 */
-	public static void delete(String idSrc){
+	public static void delete(String id){
 		open();
 
 		try {
@@ -158,8 +158,14 @@ public class DataBase {
 			stmt.execute("select * from modele");
 
 			//requete
-			String s ="delete from modele where id='"+idSrc+"'";
+			String s ="delete from modele where id='"+id+"'";
 			stmt.executeUpdate(s);
+			
+			File f = new File("data/"+id+".ply");
+			if(f.exists())
+				f.delete();
+			else
+				JOptionPane.showMessageDialog(null, "Le modele n'est pas present dans la base de donnees, suppression impossible", "Attention", JOptionPane.WARNING_MESSAGE);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -171,10 +177,13 @@ public class DataBase {
 	 * verifie que le chein vers le fichier plac� en parametre existe et si c'est c'est un type .ply, si c'est le cas
 	 * il est copi� dans le dossier data du projet
 	 * @param path
+	 * @throws SQLException 
 	 */
-	public static void addFile(String path){
-
+	public static void addFile(String path) throws SQLException{
+		open();
 		try {
+			Statement stmt = con.createStatement();
+			
 			InputStream sourceFile = new java.io.FileInputStream(path); 
 			File destintation = new File("data/"+new File(path).getName());
 
@@ -184,8 +193,7 @@ public class DataBase {
 			while ((nbLecture = sourceFile.read(buffer)) != -1){ 
 				destinationFile.write(buffer, 0, nbLecture); 
 			}
-
-
+			initDB();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
@@ -193,7 +201,7 @@ public class DataBase {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-
+		close();
 
 
 	}
@@ -244,6 +252,7 @@ public class DataBase {
 	//Le parametre doit etre une liste de string ( � refaire)
 	public static void find(String s){
 		JFrame frame= new JFrame("recherche de modele avec le mot cl� : \""+s+"\"");
+		frame.setPreferredSize(new Dimension(400,200));
 		JScrollPane scrollpan = new JScrollPane();
 	
 		try{
@@ -307,7 +316,7 @@ public class DataBase {
 			}
 			
 			if(name.equals("") && emplacement.equals("") && date.equals("")){
-				JOptionPane.showMessageDialog(null, "Le modele n'est pas pr�sent dans la base de donn�es", "Attention", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Le modele n'est pas present dans la base de donnees", "Attention", JOptionPane.WARNING_MESSAGE);
 				System.exit(0);
 			}
 

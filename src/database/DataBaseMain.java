@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class DataBaseMain {
-
+	
 	public static void main(String[] args) throws Exception{
 		if(args.length==1) {
 			if(args[0].equals("--all")){
@@ -40,7 +41,13 @@ public class DataBaseMain {
 				cancel.setPreferredSize(new Dimension(200, 30));
 				submit.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent arg0){
-						DataBase.addFile(text.getText());
+						try {
+							DataBase.addFile(text.getText());
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.exit(0);
 					}
 				});
 				cancel.addActionListener(new ActionListener(){
