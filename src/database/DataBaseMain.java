@@ -22,9 +22,10 @@ public class DataBaseMain {
 	public static void main(String[] args) throws Exception{
 		if(args.length==1) {
 			if(args[0].equals("--all")){
-				//Methode a modifier pour un affichage plus agrï¿½able
+				//Methode a modifier pour un affichage plus agreable
 				DataBase.selectAll();
 			}else if(args[0].equals("--add")){
+				//Construction de la fenetre
 				JFrame frame= new JFrame("Ajout");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setPreferredSize(new Dimension(400,200));
@@ -43,6 +44,8 @@ public class DataBaseMain {
 				submit.setPreferredSize(new Dimension(200, 30));
 				JButton cancel = new JButton("Cancel");
 				cancel.setPreferredSize(new Dimension(200, 30));
+				
+				//Ajout du fichier a la base de donnees vie la méthode dataBase.addFile(String s)
 				submit.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent arg0){
 						try {
@@ -54,6 +57,8 @@ public class DataBaseMain {
 						System.exit(0);
 					}
 				});
+				
+				//En cas d'annulation de la part de l'utilisateur, le programme est quitté
 				cancel.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent arg0){
 						System.exit(0);
@@ -67,6 +72,7 @@ public class DataBaseMain {
 				frame.getContentPane().add(pane);
 				frame.setVisible(true);
 			}
+			//Verification du nombre d'arguments (ici, ne nom de la commande suivi d'un parametre
 		}else if(args.length==2){
 			if(args[0].equals("--delete")){
 				DataBase.delete(args[1]);
@@ -110,7 +116,8 @@ public class DataBaseMain {
 				gbc_textField.gridx = 2;
 				gbc_textField.gridy = 1;
 				id.setText(args[1]);
-				id.setEditable(false);
+				
+				id.setEditable(false); //Le champ id ne peut etre modifié 
 				panel.add(id, gbc_textField);
 				id.setColumns(10);
 				

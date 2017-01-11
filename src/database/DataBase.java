@@ -111,10 +111,10 @@ public class DataBase {
 	
 
 	/**
-	 * Fonction qui permet de mettre à jour un tuple dans la base de données.
-	 * @param idSrc l'identifiant du tuple à modifier.
-	 * @param valeur les mots clés qui décrivent le modele.
-	 * @param path le chemin du modele contenu dans la base de données.
+	 * Fonction qui permet de mettre a jour un tuple dans la base de donnees.
+	 * @param idSrc l'identifiant du tuple a modifier.
+	 * @param valeur les mots cles qui decrivent le modele.
+	 * @param path le chemin du modele contenu dans la base de donnees.
 	 */
 	public static void update(String idSrc, String valeur, String path){
 		open();
@@ -137,7 +137,7 @@ public class DataBase {
 			JFrame frame = new JFrame("Edit");
 			
 			//requete
-
+			//Verifie si le champ est vide ou nom, si oui, la donnee est modifier sinon il ne se passe rien
 			if(!path.equals(""))
 				stmt.executeUpdate("update modele set path= '"+path+"' where id like '"+idSrc+"';");
 			stmt.executeUpdate("update modele set date = '"+date2+"' where id like '"+idSrc+"';");
@@ -152,8 +152,8 @@ public class DataBase {
 	}
 
 	/**
-	 * Fonction qui permet de supprimer un tuple dans la base de données.
-	 * @param idSrc l'identifiant du tuple à supprimer.
+	 * Fonction qui permet de supprimer un tuple dans la base de donnees, supprime egalement le fichier contenu dans le dossier data
+	 * @param idSrc l'identifiant du tuple a� supprimer.
 	 */
 	public static void delete(String id){
 		open();
@@ -180,8 +180,8 @@ public class DataBase {
 		close();
 	}
 	/**
-	 * verifie que le chein vers le fichier plac� en parametre existe et si c'est c'est un type .ply, si c'est le cas
-	 * il est copi� dans le dossier data du projet
+	 * verifie que le chein vers le fichier place en parametre existe et si c'est c'est un type .ply, si c'est le cas
+	 * il est copie dans le dossier data du projet, il est egalement ajout� a la base de donnees
 	 * @param path
 	 * @throws SQLException 
 	 */
@@ -253,10 +253,10 @@ public class DataBase {
 	}
 	
 	/**
-	 * Affiche une liste de modele qui selon un mot cl� de recherche plac� en arguments
+	 * Affiche une liste de modele qui selon un mot cle de recherche place en arguments
 	 * @param s
 	 */
-	//Le parametre doit etre une liste de string ( � refaire)
+	//Le parametre doit etre une liste de string ( a refaire)
 	public static void find(String s){
 		JFrame frame= new JFrame("recherche de modele avec le mot cl� : \""+s+"\"");
 		frame.setPreferredSize(new Dimension(400,200));
@@ -301,6 +301,10 @@ public class DataBase {
 
 
 	}
+	/**
+	 * Methode qui construit une fenetre contenant les informations sur un fichier
+	 * @param file, fichier sur lequel portent les informations
+	 */
 	
 	public static void getInfoModel(String file){
 		open();
