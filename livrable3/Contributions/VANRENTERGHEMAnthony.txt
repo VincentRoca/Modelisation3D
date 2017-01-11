@@ -1,0 +1,3 @@
+contribution au projet de modélisation :
+- Création et début de l'implémentation de la classe de test GeometrieTest avec Adrien
+- Rapport du groupe
