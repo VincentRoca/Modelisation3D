@@ -107,7 +107,8 @@ public class DataBase {
 		}
 		close();
 	}
-
+	
+	
 
 	/**
 	 * Fonction qui permet de mettre à jour un tuple dans la base de données.
