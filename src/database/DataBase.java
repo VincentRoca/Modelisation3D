@@ -138,11 +138,11 @@ public class DataBase {
 			
 			//requete
 
-			//String s ="update modele set path='"+path+"', date='"+date2+ "' MotsCles='" + valeur + "' where id like '"+idSrc+"'";
-
-			stmt.executeUpdate("update modele set path= '"+path+"' where id like '"+idSrc+"';");
+			if(!path.equals(""))
+				stmt.executeUpdate("update modele set path= '"+path+"' where id like '"+idSrc+"';");
 			stmt.executeUpdate("update modele set date = '"+date2+"' where id like '"+idSrc+"';");
-			stmt.executeUpdate("update modele set MotsCles = '"+valeur+"' where id like '"+idSrc+"';");
+			if(!valeur.equals(""))
+				stmt.executeUpdate("update modele set MotsCles = '"+valeur+"' where id like '"+idSrc+"';");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
