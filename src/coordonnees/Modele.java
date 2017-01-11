@@ -18,7 +18,11 @@ public class Modele extends Observable {
 	
 	private MatriceFloat ensemblePoints;
 	
-	public final static Vector3d lumiere=new Vector3d(0, 0, 1);
+	public final static Vector3d lumiere=new Vector3d(0, -1, 1);
+	
+	static {
+		lumiere.normalize();
+	}
 
 	public Modele(String fileName) throws IOException  {
 		float[][] points=null;

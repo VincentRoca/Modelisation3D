@@ -27,13 +27,15 @@ public class Face {
 	}
 	
 	/**
-	 * définit le niveau de gris de la face en fonction de la lumière reçu
+	 * dï¿½finit le niveau de gris de la face en fonction de la lumiï¿½re reï¿½u
 	 * @param lumiere vecteur lumiere
 	 */
 	public void defineG(Vector3d lumiere) {
 		Vector3d v=vecteurNormal();
 		v.normalize();
 		g=(int)(v.dot(lumiere)*255);
+		if(g<0)g=-g;
+		//System.out.println(g);
 	}
 	
 	public Color getColor() {
@@ -48,7 +50,7 @@ public class Face {
 	}
 	
 	/**
-	 * Retourne un vecteur normal au plan défini par les points de la face
+	 * Retourne un vecteur normal au plan dï¿½fini par les points de la face
 	 */
 	private Vector3d vecteurNormal() {
 		// on calcule les coordonnees de 2 vecteurs directeurs du plan
