@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Observable;
 
-import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 
 import affichage.Main;
 import maths.Geometrie;
@@ -18,11 +18,9 @@ public class Modele extends Observable {
 	
 	private MatriceFloat ensemblePoints;
 	
-	public final static Vector3d lumiere=new Vector3d(0, -1, 1);
+	public final Vector3f LUMIERE=new Vector3f(0, -1, 2);
 	
-	static {
-		lumiere.normalize();
-	}
+	private final float[] PLAN=new float[]{-2,0,1,0};
 
 	public Modele(String fileName) throws IOException  {
 		float[][] points=null;
@@ -55,10 +53,18 @@ public class Modele extends Observable {
 		br.close();
 		ajustePoints();
 		triFaces();
+		LUMIERE.normalize();
 	}
 	
 	public float[][] getPoints() {
 		return ensemblePoints.getMatrice();
+	}
+	
+	/**
+	 * Renvoie les coordonnees de la projection sur le plan PLAN parralelement au vecteur LUMIERE
+	 */
+	public float[][] getProjection() {
+		return ensemblePoints.produit(Geometrie.projection(PLAN, LUMIERE)).getMatrice();
 	}
 
 	public Face[] getFaces() {
@@ -144,5 +150,7 @@ public class Modele extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+	
+	
 
 }

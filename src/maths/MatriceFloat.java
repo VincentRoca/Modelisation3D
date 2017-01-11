@@ -1,5 +1,7 @@
 package maths;
 
+import javax.vecmath.Matrix4f;
+
 public class MatriceFloat {
 
 	private float[][] matrice;
@@ -40,6 +42,20 @@ public class MatriceFloat {
 		return matrice;
 	}
 	
+	MatriceFloat inverse() {
+		if(matrice.length!=4 || matrice[0].length!=4) return null;
+		float[] tab=new float[16];
+		for(int i=0; i<16; i++)
+			tab[i]=matrice[i/4][i%4];
+		Matrix4f mat=new Matrix4f(tab);
+		mat.invert();
+		float[][] tab2=new float[4][4];
+		for(int i=0; i<4; i++)
+			for(int j=0; j<4; j++)
+				tab2[i][j]=mat.getElement(i, j);
+		return new MatriceFloat(tab2);
+	}
+
 	/** 
 	 * 
 	 * @param i coordonne du tableau de matrice
@@ -49,18 +65,5 @@ public class MatriceFloat {
 	public float get(int i,int j){
 		return matrice[i][j];
 	}
-
-	@Override
-	public String toString() {
-		System.out.println("toString ");
-		String res ="[[";
-		for (int i = 0; i < matrice.length; i++) {
-			for (int j = 0; j < matrice.length; j++) {
-				res+="; "+get(i,j);
-			}
-			res+="]\n[";
-		}
-		res+="]]";
-		return res;
-	}
+	
 }

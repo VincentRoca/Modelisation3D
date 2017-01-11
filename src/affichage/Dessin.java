@@ -3,11 +3,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -103,9 +106,9 @@ class Dessin extends JPanel implements Observer {
 			int[] x=null, y=null;
 			if(type !=ARETES) {
 				x=new int[points.length];
-				y=new int[points.length]; 
+				y=new int[points.length];
 			}
-			if(type!=FACES) g.setColor(new Color(0,0,0));
+			if(type!=FACES) g.setColor(Color.BLACK);
 			for(int j=0; j<points.length; j++) {
 				if(type!=FACES) g.drawLine(Math.round(points[j][0]), Math.round(points[j][1]), Math.round(points[(j+1)%points.length][0]), Math.round(points[(j+1)%points.length][1]));
 				if(type!=ARETES){
@@ -114,11 +117,46 @@ class Dessin extends JPanel implements Observer {
 				}
 			}
 			if(type!=ARETES) {
-				f.defineG(Modele.lumiere);
+				f.defineG(modele.LUMIERE);
 				g.setColor(f.getColor());
 				g.fillPolygon(x, y, x.length);
 			}
 		}
+		//g.setColor(Color.BLACK);
+		//if(type!=ARETES) dessinerOmbre(g);
+	}
+	
+	private void dessinerOmbre(Graphics g) {
+		float[][] ombre=modele.getProjection();
+		int[] x=new int[3*ombre.length];
+		int[] y=new int[3*ombre.length];
+		int minX=Integer.MAX_VALUE, maxX=Integer.MIN_VALUE, minY=Integer.MAX_VALUE, maxY=Integer.MIN_VALUE;
+		for(int i=0; i<ombre.length; i++) {
+			x[i]=Math.round(ombre[i][0]);
+			if(x[i]<minX) minX=x[i];
+			if(x[i]>maxX) maxX=x[i];
+			y[i]=Math.round(ombre[i][1]);
+			if(y[i]<minY) minY=y[i];
+			if(y[i]>maxY) maxY=y[i];
+		}
+		Polygon p=new Polygon(x, y, ombre.length);
+		List<Integer> x2=new ArrayList<>();
+		List<Integer> y2=new ArrayList<>();
+		for(int i=minX; i<=maxX; i++)
+			for(int j=minY; j<=maxY; j++)
+				if(p.contains(i, j)) {
+					x2.add(i);
+					y2.add(j);
+				}
+		Integer[] t=x2.toArray(new Integer[0]);
+		x=new int[t.length];
+		for(int i=0; i<x.length; i++) 
+			x[i]=t[i];
+		t=y2.toArray(new Integer[0]);
+		y=new int[t.length];
+		for(int i=0; i<y.length; i++)
+			y[i]=t[i];
+		g.fillPolygon(x, y, x.length);
 	}
 
 	public void update(Observable o, Object arg) {

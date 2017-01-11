@@ -1,4 +1,6 @@
 package maths;
+import javax.vecmath.Vector3f;
+
 import affichage.Main;
 
 public abstract class Geometrie {
@@ -68,6 +70,23 @@ public abstract class Geometrie {
 		m[3][1]=0; 
 		m[3][2]=(float)(centre[2]*(-Math.cos(angle)+1)+centre[0]*Math.sin(angle)); m[3][3]=1;
 		return new MatriceFloat(m);
+	}
+	
+	public static MatriceFloat projection(float[] plan, Vector3f lumiere) {
+		float[][] m1=new float[][] {
+			{lumiere.x, -plan[1]/plan[0], -plan[2]/plan[0], 0},
+			{lumiere.y,         1       ,         0       , 0},
+			{lumiere.z,         0       ,         1       , 1},
+			{    0    ,         0       ,         0       , 1}
+		};
+		MatriceFloat mat1=new MatriceFloat(m1), mat3=mat1.inverse();
+		m1=new float[][] {
+			{0,0,0,0},
+			{0,1,0,0},
+			{0,0,1,0},
+			{0,0,0,1}
+		};
+		return mat1.produit(new MatriceFloat(m1)).produit(mat3);
 	}
 
 	public static float[] isobarycentre(float[][] points) {
