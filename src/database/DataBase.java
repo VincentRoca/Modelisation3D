@@ -116,7 +116,7 @@ public class DataBase {
 	 * @param valeur les mots clés qui décrivent le modele.
 	 * @param path le chemin du modele contenu dans la base de données.
 	 */
-	public void update(String idSrc, String valeur, String path){
+	public static void update(String idSrc, String valeur, String path){
 		open();
 
 		try {
@@ -132,12 +132,17 @@ public class DataBase {
 			int month =date.getMonth();
 			int day = date.getDay();
 			Date date2 = new Date(year , month, day);
-
+			
+			//affichage
+			JFrame frame = new JFrame("Edit");
+			
 			//requete
 
-			String s ="update modele set path='"+path+"', date='"+date2+ "' MotsCles='" + valeur + "', where id='"+idSrc+"'";
+			//String s ="update modele set path='"+path+"', date='"+date2+ "' MotsCles='" + valeur + "' where id like '"+idSrc+"'";
 
-			stmt.executeUpdate(s);
+			stmt.executeUpdate("update modele set path= '"+path+"' where id like '"+idSrc+"';");
+			stmt.executeUpdate("update modele set date = '"+date2+"' where id like '"+idSrc+"';");
+			stmt.executeUpdate("update modele set MotsCles = '"+valeur+"' where id like '"+idSrc+"';");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -225,13 +230,14 @@ public class DataBase {
 			rs = stmt.executeQuery("select * from modele");
 
 			JList<String> jliste= new JList<>(liste);
-			liste[0] = remplissage("NAME                           EMPLACEMENT                           DATE");
+			liste[0] = remplissage("NAME                           EMPLACEMENT                           DATE                           KEYWORD");
 			int i =1;
 			while(rs.next()) {
-				liste[i]=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))/*+rs.getString(4)*/;
+				liste[i]=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))+rs.getString(4);
 				i++;
 			}
 			JFrame frame = new JFrame("Modeles");
+			frame.setPreferredSize(new Dimension(600,200));
 			JScrollPane pan = new JScrollPane();
 			frame.add(pan);
 			pan.setViewportView(jliste);
