@@ -1,0 +1,3 @@
+-Modification de la méthode addFile -> ajout du fichier dans la base de donnees
+-Modification de la méthode delete -> Suppression du fichier dans le repertoire data
+-Modification des classes DataBaseMain et DataBase -> Fonctionnalités manquantes 
