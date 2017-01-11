@@ -1,7 +1,5 @@
 package maths;
 
-import java.util.Arrays;
-
 public class MatriceFloat {
 
 	private float[][] matrice;

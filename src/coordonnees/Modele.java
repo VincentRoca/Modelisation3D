@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Observable;
 
+import javax.vecmath.Vector3d;
+
 import affichage.Main;
 import maths.Geometrie;
 import maths.MatriceFloat;
@@ -15,6 +17,12 @@ public class Modele extends Observable {
 	private Face[] faces;
 	
 	private MatriceFloat ensemblePoints;
+	
+	public final static Vector3d lumiere=new Vector3d(0, -1, 1);
+	
+	static {
+		lumiere.normalize();
+	}
 
 	public Modele(String fileName) throws IOException  {
 		float[][] points=null;
