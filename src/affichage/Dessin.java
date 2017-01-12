@@ -102,6 +102,7 @@ class Dessin extends JPanel implements Observer {
 		Dimension d=getSize();
 		g.fillRect(0, 0, d.width, d.height);
 		Face[] faces=modele.getFaces();
+		List<Polygon> faces2=new ArrayList<>();
 		for(int i=0; i<faces.length; i++) {
 			Face f=faces[i];
 			float[][] points=f.getPoints();
@@ -127,13 +128,17 @@ class Dessin extends JPanel implements Observer {
 			if(type!=ARETES) {
 				g.setColor(Color.BLACK);
 				g.fillPolygon(xo, yo, xo.length);
-				f.defineG(modele.LUMIERE);
-				g.setColor(f.getColor());
-				g.fillPolygon(x, y, x.length);
+				faces2.add(new Polygon(x,y,x.length));
 			}
 		}
-		//g.setColor(Color.BLACK);
-		//if(type!=ARETES) dessinerOmbre(g);
+		if(type!=ARETES) {
+			for(int i=0; i<faces.length; i++) {
+				Face f=faces[i];
+				f.defineG(modele.LUMIERE);
+				g.setColor(f.getColor());
+				g.fillPolygon(faces2.get(i));
+			}
+		}
 	}
 	
 	private void dessinerOmbre(Graphics g) {
