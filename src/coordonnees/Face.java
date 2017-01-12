@@ -33,9 +33,8 @@ public class Face {
 	public void defineG(Vector3f lumiere) {
 		Vector3f v=vecteurNormal();
 		v.normalize();
-		double val=v.dot(lumiere);
-		val=(val+1)/2*255;
-		g=(int)val;
+		g=(int)(v.dot(lumiere)*255);
+		if(g<0) g=0;
 	}
 	
 	public Color getColor() {
@@ -57,8 +56,12 @@ public class Face {
 		float a1=points[0][0]-points[1][0]; float a2=points[0][0]-points[2][0];
 		float b1=points[0][1]-points[1][1]; float b2=points[0][1]-points[2][1];
 		float c1=points[0][2]-points[1][2]; float c2=points[0][2]-points[2][2];
-		return new Vector3f(((-b1*c2*(a2+a1))/(b2*a1-a2*b1)-c2)/a1,
-				(a2*c1-c2*a1)/(b2*a1-a2*b1),1);
+		/*return new Vector3f(((-b1*c2*(a2+a1))/(b2*a1-a2*b1)-c2)/a1,
+				(a2*c1-c2*a1)/(b2*a1-a2*b1),1);*/
+		Vector3f v1=new Vector3f(a1,b1,c1), v2=new Vector3f(a2, b2, c2);
+		v1.cross(v1, v2);
+		v1.scale(-1);
+		return v1;
 	}
 	
 }

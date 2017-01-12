@@ -74,10 +74,14 @@ public abstract class Geometrie {
 	
 	public static MatriceFloat projection(float[] plan, Vector3f lumiere) {
 		float[][] m1=new float[][] {
-			{lumiere.x, -plan[1]/plan[0], -plan[2]/plan[0], 0},
-			{lumiere.y,         1       ,         0       , 0},
-			{lumiere.z,         0       ,         1       , 1},
-			{    0    ,         0       ,         0       , 1}
+			/*{lumiere.x, -plan[1]/plan[0], -plan[2]/plan[0], 50},
+			{lumiere.y,         1       ,         0       , 50},
+			{lumiere.z,         0       ,         1       , 100},
+			{    0    ,         0       ,         0       , 1}*/
+			{lumiere.x, lumiere.y, lumiere.z,0},
+			{-plan[1]/plan[0],1,0,0},
+			{-plan[2]/plan[0],0,1,0},
+			{0,0,0,1}
 		};
 		MatriceFloat mat1=new MatriceFloat(m1), mat3=mat1.inverse();
 		m1=new float[][] {

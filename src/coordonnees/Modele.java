@@ -18,9 +18,9 @@ public class Modele extends Observable {
 	
 	private MatriceFloat ensemblePoints;
 	
-	public final Vector3f LUMIERE=new Vector3f(0, -1, 2);
+	public final Vector3f LUMIERE=new Vector3f(-1, 0, -1);
 	
-	private final float[] PLAN=new float[]{-2,0,1,0};
+	public final float[] PLAN=new float[]{-1,0,-1,300};
 
 	public Modele(String fileName) throws IOException  {
 		float[][] points=null;

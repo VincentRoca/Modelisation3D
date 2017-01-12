@@ -21,6 +21,8 @@ import javax.swing.SwingUtilities;
 
 import coordonnees.Face;
 import coordonnees.Modele;
+import maths.Geometrie;
+import maths.MatriceFloat;
 
 /**
  * Cette classe permet d'afficher un modele et fourni et gère les actions à effectuer en fonction des évènements utilisateur. 
@@ -104,9 +106,12 @@ class Dessin extends JPanel implements Observer {
 			Face f=faces[i];
 			float[][] points=f.getPoints();
 			int[] x=null, y=null;
+			int[] xo=null, yo=null;
 			if(type !=ARETES) {
 				x=new int[points.length];
 				y=new int[points.length];
+				xo=new int[points.length];
+				yo=new int[points.length];
 			}
 			if(type!=FACES) g.setColor(Color.BLACK);
 			for(int j=0; j<points.length; j++) {
@@ -114,9 +119,14 @@ class Dessin extends JPanel implements Observer {
 				if(type!=ARETES){
 					x[j]=Math.round(points[j][0]);
 					y[j]=Math.round(points[j][1]);
+					MatriceFloat projection=new MatriceFloat(new float[][]{points[j]}).produit(Geometrie.projection(modele.PLAN, modele.LUMIERE));
+					xo[j]=(int)projection.get(0, 0);
+					yo[j]=(int)projection.get(0, 1);
 				}
 			}
 			if(type!=ARETES) {
+				g.setColor(Color.BLACK);
+				g.fillPolygon(xo, yo, xo.length);
 				f.defineG(modele.LUMIERE);
 				g.setColor(f.getColor());
 				g.fillPolygon(x, y, x.length);
