@@ -14,8 +14,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import affichage.Affichage3D;
 
 public class DataBase {
 
@@ -153,7 +158,7 @@ public class DataBase {
 
 	/**
 	 * Fonction qui permet de supprimer un tuple dans la base de donnees, supprime egalement le fichier contenu dans le dossier data
-	 * @param idSrc l'identifiant du tuple a  supprimer.
+	 * @param idSrc l'identifiant du tuple aï¿½ supprimer.
 	 */
 	public static void delete(String id){
 		open();
@@ -181,7 +186,7 @@ public class DataBase {
 	}
 	/**
 	 * verifie que le chein vers le fichier place en parametre existe et si c'est c'est un type .ply, si c'est le cas
-	 * il est copie dans le dossier data du projet, il est egalement ajouté a la base de donnees
+	 * il est copie dans le dossier data du projet, il est egalement ajoutï¿½ a la base de donnees
 	 * @param path
 	 * @throws SQLException 
 	 */
@@ -232,8 +237,10 @@ public class DataBase {
 			JList<String> jliste= new JList<>(liste);
 			liste[0] = remplissage("NAME                           EMPLACEMENT                           DATE                           KEYWORD");
 			int i =1;
+			final List<String> emplacements=new ArrayList<>();
 			while(rs.next()) {
 				liste[i]=remplissage(rs.getString(1))+remplissage(rs.getString(2))+remplissage(rs.getString(3))+rs.getString(4);
+				emplacements.add(rs.getString(2));
 				i++;
 			}
 			JFrame frame = new JFrame("Modeles");
@@ -244,6 +251,12 @@ public class DataBase {
 			frame.setVisible(true);
 			frame.pack();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			jliste.addListSelectionListener(new ListSelectionListener() {
+				
+				public void valueChanged(ListSelectionEvent e) {
+					Affichage3D.affichage(emplacements.get(e.getFirstIndex()-1));
+				}
+			});
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

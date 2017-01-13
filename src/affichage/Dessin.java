@@ -79,7 +79,7 @@ class Dessin extends JPanel implements Observer {
 		setLayout(null);
 		controle.setLayout(new BoxLayout(controle, BoxLayout.Y_AXIS));
 		add(controle);
-		controle.setBounds((int)(Main.fenetre.width*0.8),(int)(Main.fenetre.height*0.8), (int)(Main.fenetre.width*0.2), (int)(Main.fenetre.height*0.2));
+		controle.setBounds((int)(Affichage3D.fenetre.width*0.8),(int)(Affichage3D.fenetre.height*0.8), (int)(Affichage3D.fenetre.width*0.2), (int)(Affichage3D.fenetre.height*0.2));
 		controle.setBackground(Color.lightGray);
 		JButton rotation=new JButton("rotationZ");
 		controle.add(rotation);

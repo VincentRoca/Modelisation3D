@@ -1,7 +1,7 @@
 package maths;
 import javax.vecmath.Vector3f;
 
-import affichage.Main;
+import affichage.Affichage3D;
 
 public abstract class Geometrie {
 
@@ -37,7 +37,7 @@ public abstract class Geometrie {
 		float rapport;
 		if(width/dx>height/dy) rapport=height/dy;
 		else rapport=width/dx;
-		return translation((float)Main.milieu.getX()-middleX, (float)Main.milieu.getY()-middleY, 0).produit(homothetie(rapport, Main.milieu.x, Main.milieu.y, 0));
+		return translation((float)Affichage3D.milieu.getX()-middleX, (float)Affichage3D.milieu.getY()-middleY, 0).produit(homothetie(rapport, Affichage3D.milieu.x, Affichage3D.milieu.y, 0));
 	}
 	
 	public static MatriceFloat rotationX(double angle,float[] centre) {

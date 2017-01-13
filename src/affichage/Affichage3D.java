@@ -9,18 +9,18 @@ import javax.swing.JOptionPane;
 import coordonnees.Modele;
 
 
-public class Main {
+public class Affichage3D {
 	
 	public static Point milieu;
 	public static Rectangle fenetre;
 
-	public static void main(String[] args) {
+	public static void affichage(String filename) {
 		try {
-			String filename=null;
+			/*String filename=null;
 			if(args.length==2)
 				filename=args[1];
 			else if(args.length==1)
-				filename=args[0];
+				filename=args[0];*/
 			JFrame frame=new JFrame();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			fenetre=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -29,21 +29,25 @@ public class Main {
 			frame.setResizable(false);
 			frame.pack();
 			frame.setLocationRelativeTo(null);
-			Dessin d=new Dessin(new Modele(filename));
-			if(args.length==2) {
+			//Dessin d=new Dessin(new Modele(filename));
+			/*if(args.length==2) {
 				if(args[0].equals("-f"))
 					d.setType(Dessin.FACES);
 				else if(args[0].equals("-s"))
 					d.setType(Dessin.ARETES);
 				else
 					throw new Exception();
-			}
-			frame.getContentPane().add(d);
+			}*/
+			frame.getContentPane().add(new Dessin(new Modele(filename)));
 			frame.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Mauvaise utilisation du logiciel");
 		}
 	}
+	
+	/*public static void main(String[] args) {
+		affichage("data/galleon.ply");
+	}*/
 
 	private static Point milieu() {
 		Point res=new Point();

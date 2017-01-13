@@ -8,7 +8,7 @@ import java.util.Observable;
 
 import javax.vecmath.Vector3f;
 
-import affichage.Main;
+import affichage.Affichage3D;
 import maths.Geometrie;
 import maths.MatriceFloat;
 
@@ -116,7 +116,7 @@ public class Modele extends Observable {
 	public void ajustePoints() {
 		float middleX=(getXMin()+getXMax())/2, middleY=(getYMin()+getYMax())/2;
 		float dx=getXMax()-getXMin(), dy=getYMax()-getYMin();
-		float width=(float)(Main.fenetre.getWidth()*0.9), height=(float)(Main.fenetre.getHeight()*0.9);
+		float width=(float)(Affichage3D.fenetre.getWidth()*0.9), height=(float)(Affichage3D.fenetre.getHeight()*0.9);
 		ensemblePoints.transformation(Geometrie.cadrage(middleX, middleY, dx, dy, width, height));
 		setChanged();
 		notifyObservers();
