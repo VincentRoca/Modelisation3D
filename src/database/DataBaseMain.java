@@ -20,11 +20,13 @@ import javax.swing.border.EmptyBorder;
 public class DataBaseMain {
 	
 	public static void main(String[] args) throws Exception{
+		if(args.length==0)
+			DataBase.selectAll();
 		if(args.length==1) {
-			if(args[0].equals("--all")){
+			/*if(args[0].equals("")){
 				//Methode a modifier pour un affichage plus agreable
 				DataBase.selectAll();
-			}else if(args[0].equals("--add")){
+			}else */if(args[0].equals("--add")){
 				//Construction de la fenetre
 				JFrame frame= new JFrame("Ajout");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -190,9 +192,10 @@ public class DataBaseMain {
 				DataBase.find(args[1]);
 			}
 		}
-		else{
+		/*else{
+			DataBase.selectAll();
 			JOptionPane.showMessageDialog(null, "Mauvaise utilisation", "Attention", JOptionPane.WARNING_MESSAGE);
-		}
+		}*/
 			
 		
 	}
