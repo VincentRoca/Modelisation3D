@@ -77,7 +77,7 @@ public class DataBaseMain {
 			//Verification du nombre d'arguments (ici, ne nom de la commande suivi d'un parametre
 		}else if(args.length==2){
 			if(args[0].equals("--delete")){
-				DataBase.delete(args[1]);
+				DataBase.delete();
 			}if(args[0].equals("--name")){
 				DataBase.getInfoModel(args[1]);
 			}

@@ -1,0 +1,2 @@
+-refactoring MVC
+-travaille sur l'ombre
